@@ -53,6 +53,10 @@ module.exports = (sequelize) => {
         backupContact: {
             type: DataTypes.STRING,
             allowNull: false
+        },
+        imageUrl: {
+            type: DataTypes.TEXT,
+            allowNull: true
         }
     },
    {
