@@ -43,7 +43,6 @@ const {
   Location,
   Speciality,
   Product,
-  Presentation,
   PresentationType,
   Drug,
   Laboratory,
@@ -68,8 +67,7 @@ Doctor.hasMany(Appointment)
 User.hasMany(Sale)
 Sale.hasMany(DetailSale)
 Laboratory.hasMany(Product)
-Presentation.hasMany(Product)
-PresentationType.hasMany(Presentation)
+PresentationType.hasMany(Product)
 Location.hasMany(Appointment)
 
 // 1:1
@@ -79,8 +77,7 @@ Appointment.belongsTo(Doctor)
 Sale.belongsTo(User)
 DetailSale.belongsTo(Sale)
 Product.belongsTo(Laboratory)
-Product.belongsTo(Presentation)
-Presentation.belongsTo(PresentationType)
+Product.belongsTo(PresentationType)
 Appointment.belongsTo(Location)
 
 module.exports = {

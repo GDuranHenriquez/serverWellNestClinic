@@ -2,7 +2,7 @@ const {DataTypes} = require("sequelize");
 
 module.exports = (sequelize) => {
 
-    sequelize.define("user", {
+    sequelize.define("user_client", {
         id: {
             type: DataTypes.UUID,
             defaultValue: DataTypes.UUIDV4,
@@ -45,10 +45,6 @@ module.exports = (sequelize) => {
         deleted: {
             type: DataTypes.BOOLEAN,
             defaultValue: false
-        },
-        level: {
-            type: DataTypes.INTEGER,          // REVIEW
-            allowNull: false
         },
         upToDate: {
             type: DataTypes.BOOLEAN,

@@ -7,7 +7,7 @@ module.exports = (sequelize) => {
       type : DataTypes.INTEGER,
       autoIncrement: true,
       allowNull: false,
-      primaryKey: true,      
+      primaryKey: true,
     },
     name: {
       type: DataTypes.STRING,
@@ -18,15 +18,11 @@ module.exports = (sequelize) => {
       allowNull: false
     },
     dose:{
-      type: DataTypes.FLOAT,
-      allowNull: false,
-    },
-    type:{
-      type: DataTypes.STRING,  
+      type: DataTypes.STRING,
       allowNull: false,
     },
     amount:{
-        type: DataTypes.INTEGER,  
+        type: DataTypes.INTEGER,
         allowNull: false,
       },
     image:{
