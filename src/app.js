@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const cors = require('cors');
 
+
 //All Routes.
 
 
@@ -12,6 +13,7 @@ require('./db.js');
 const server = express();
 
 server.name = 'API WELLNEST CLINIC';
+
 
 server.use(bodyParser.urlencoded({ extended: true, limit: '100mb' }));
 server.use(bodyParser.json({ limit: '100mb' }));
