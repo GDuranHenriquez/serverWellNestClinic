@@ -70,6 +70,7 @@ Sale.hasMany(DetailSale)
 Laboratory.hasMany(Product)
 Presentation.hasMany(Product)
 PresentationType.hasMany(Presentation)
+Location.hasMany(Appointment)
 
 // 1:1
 User.belongsTo(Plan)
@@ -80,6 +81,7 @@ DetailSale.belongsTo(Sale)
 Product.belongsTo(Laboratory)
 Product.belongsTo(Presentation)
 Presentation.belongsTo(PresentationType)
+Appointment.belongsTo(Location)
 
 module.exports = {
   ...sequelize.models, // para poder importar los modelos así: const { Product, User } = require('./db.js');
