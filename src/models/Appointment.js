@@ -1,19 +1,23 @@
 const { DataTypes } = require("sequelize");
 
 module.exports = (sequelize) => {
-    sequelize.define("sale", {
+    sequelize.define("appointment", {
         id: {
             type: DataTypes.INTEGER,
             autoIncrement: true,
             primaryKey: true,
             allowNull: false
         },
-        price: {
-            type: DataTypes.FLOAT,
-            allowNull: false
-        },
         date: {
             type: DataTypes.DATE,
+            allowNull: false
+        },
+        startTime: {
+            type: DataTypes.TIME,
+            allowNull: false
+        },
+        endTime: {
+            type: DataTypes.TIME,
             allowNull: false
         }
     },
