@@ -12,7 +12,11 @@ module.exports = (sequelize) => {
     name: {
       type: DataTypes.STRING,
       allowNull: false,
-    },    
+    },
+    description: {
+      type: DataTypes.TEXT,
+      allowNull: true
+    },
     laboratory:{
       type: DataTypes.STRING,
       allowNull: false
@@ -25,9 +29,9 @@ module.exports = (sequelize) => {
         type: DataTypes.INTEGER,
         allowNull: false,
       },
-    image:{
-      type: DataTypes.TEXT,
-      allowNull: false
+    imageUrl: {
+        type: DataTypes.TEXT,
+        allowNull: false
     },
     stock:{
       type: DataTypes.INTEGER,
