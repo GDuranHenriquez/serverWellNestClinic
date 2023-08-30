@@ -44,6 +44,11 @@ module.exports = (sequelize) => {
     },
     needPrescription:{
         type: DataTypes.BOOLEAN
+    },
+    deleted: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+      defaultValue: false
     }
   },
    {
