@@ -24,7 +24,8 @@ module.exports = (sequelize) => {
     {
         timestamps: false,
         createAt: false,
-        updateAt: false
+        updateAt: false,
+        tableName: 'Appointment'
     }
     );
 };

@@ -6,6 +6,7 @@ const cors = require('cors');
 
 
 //All Routes.
+const clientUserRouter = require('./routes/routerUserClient'); 
 
 
 require('./db.js');
@@ -29,6 +30,8 @@ server.use((req, res, next) => {
 server.use(cors());
 
 //server.use('/', routes);
+server.use('/userClient', clientUserRouter);
+
 
 
 // Error catching endware.

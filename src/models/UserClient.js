@@ -2,7 +2,7 @@ const {DataTypes} = require("sequelize");
 
 module.exports = (sequelize) => {
 
-    sequelize.define("user_client", {
+    sequelize.define("userClient", {
         id: {
             type: DataTypes.UUID,
             defaultValue: DataTypes.UUIDV4,
@@ -47,7 +47,7 @@ module.exports = (sequelize) => {
             defaultValue: false
         },
         upToDate: {
-            type: DataTypes.BOOLEAN,
+            type: DataTypes.DATE,
             allowNull: false
         },
         backupContact: {
@@ -57,11 +57,16 @@ module.exports = (sequelize) => {
         imageUrl: {
             type: DataTypes.TEXT,
             allowNull: true
+        },
+        activePlan:{
+            type: DataTypes.BOOLEAN,
+            defaultValue: true
         }
     },
    {
         timestamps: false,
         createAt: false,
-        updateAt: false
+        updateAt: false,
+        tableName: 'UserClient'
     });
 };

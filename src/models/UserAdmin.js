@@ -2,7 +2,7 @@ const {DataTypes} = require("sequelize");
 
 module.exports = (sequelize) => {
 
-    sequelize.define("user_admin", {
+    sequelize.define("userAdmin", {
         id: {
             type: DataTypes.UUID,
             defaultValue: DataTypes.UUIDV4,
@@ -38,6 +38,7 @@ module.exports = (sequelize) => {
    {
         timestamps: false,
         createAt: false,
-        updateAt: false
+        updateAt: false,
+        tableName: 'UserAdmin'
     });
 };
