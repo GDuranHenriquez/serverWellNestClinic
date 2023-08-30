@@ -1,4 +1,4 @@
-const { DataTypes } = require('sequelize/types');
+const { DataTypes } = require('sequelize');
 
 module.exports = (sequelize) => {
   
@@ -17,10 +17,7 @@ module.exports = (sequelize) => {
       type: DataTypes.TEXT,
       allowNull: true
     },
-    laboratory:{
-      type: DataTypes.STRING,
-      allowNull: false
-    },
+    
     dose:{
       type: DataTypes.STRING,
       allowNull: false,

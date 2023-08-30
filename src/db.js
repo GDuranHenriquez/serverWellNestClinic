@@ -51,14 +51,14 @@ const {
 } = sequelize.models
 
 // N:M
-Doctor.belongsToMany(Location, {throught: "doctor_location"})
-Location.belongsToMany(Doctor, {throught: "doctor_location"})
-Doctor.belongsToMany(Speciality, {throught: "doctor_speciality"})
-Speciality.belongsToMany(Doctor, {throught: "doctor_speciality"})
-Product.belongsToMany(Drug, {throught: "product_drug"})
-Drug.belongsToMany(Product, {throught: "product_drug"})
-Product.belongsToMany(DetailSale, {throught: "product_detailSale"})
-DetailSale.belongsToMany(Product, {throught: "product_detailSale"})
+Doctor.belongsToMany(Location, {through: "doctor_location", timestamps: false, createdAt: false, updatedAt: false})
+Location.belongsToMany(Doctor, {through: "doctor_location", timestamps: false, createdAt: false, updatedAt: false})
+Doctor.belongsToMany(Speciality, {through: "doctor_speciality", timestamps: false, createdAt: false, updatedAt: false})
+Speciality.belongsToMany(Doctor, {through: "doctor_speciality", timestamps: false, createdAt: false, updatedAt: false})
+Product.belongsToMany(Drug, {through: "product_drug", timestamps: false, createdAt: false, updatedAt: false})
+Drug.belongsToMany(Product, {through: "product_drug", timestamps: false, createdAt: false, updatedAt: false})
+Product.belongsToMany(DetailSale, {through: "product_detailSale", timestamps: false, createdAt: false, updatedAt: false})
+DetailSale.belongsToMany(Product, {through: "product_detailSale", timestamps: false, createdAt: false, updatedAt: false})
 
 // 1:N
 Plan.hasMany(User)
