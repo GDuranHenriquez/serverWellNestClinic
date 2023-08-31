@@ -19,6 +19,7 @@ module.exports = (sequelize) => {
       name: {
         type: DataTypes.ENUM('gold','bronze','silver'),
         allowNull: false,
+        unique:true
     }
     
 },

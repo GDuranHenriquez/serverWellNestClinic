@@ -7,7 +7,7 @@ const cors = require('cors');
 
 //All Routes.
 const clientUserRouter = require('./routes/routerUserClient'); 
-
+const planRouter = require('./routes/routerPlan');
 
 require('./db.js');
 
@@ -31,6 +31,7 @@ server.use(cors());
 
 //server.use('/', routes);
 server.use('/userClient', clientUserRouter);
+server.use('/plan', planRouter);
 
 
 
