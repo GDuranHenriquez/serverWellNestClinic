@@ -1,5 +1,5 @@
 const { DataTypes } = require('sequelize');
-const { DataTypes } = require('sequelize');
+
 
 module.exports = (sequelize) => {
   
@@ -33,15 +33,11 @@ module.exports = (sequelize) => {
       },
     imageUrl: {
         type: DataTypes.TEXT,
-        allowNull: false
-    imageUrl: {
-        type: DataTypes.TEXT,
-        allowNull: false
+        allowNull: false,
     },
     stock:{
       type: DataTypes.INTEGER,
-      allowNull: false,
-      
+      allowNull: false,      
     },
     price:{
         type: DataTypes.FLOAT,
