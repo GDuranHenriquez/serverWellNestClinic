@@ -6,7 +6,7 @@ async function postPlan(req, res){
     
     const plans = ['gold','bronze','silver'];
     if(plans.includes(plan.toLowerCase())){
-      const existePlan = await Plan.findOne({where: { plan: plan.toLowerCase() }});
+      const existePlan = await Plan.findOne({where: { name: plan.toLowerCase() }});
       if (existePlan === null) {
         var addPlan = await Plan.create({name: plan.toLowerCase()});
         return res.status(200).json(addPlan);
