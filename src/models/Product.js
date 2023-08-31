@@ -1,4 +1,5 @@
 const { DataTypes } = require('sequelize');
+const { DataTypes } = require('sequelize');
 
 module.exports = (sequelize) => {
   
@@ -21,6 +22,7 @@ module.exports = (sequelize) => {
       type: DataTypes.STRING,
       allowNull: false
     },
+    
     dose:{
       type: DataTypes.STRING,
       allowNull: false,
@@ -29,6 +31,9 @@ module.exports = (sequelize) => {
         type: DataTypes.INTEGER,
         allowNull: false,
       },
+    imageUrl: {
+        type: DataTypes.TEXT,
+        allowNull: false
     imageUrl: {
         type: DataTypes.TEXT,
         allowNull: false
@@ -44,6 +49,11 @@ module.exports = (sequelize) => {
     },
     needPrescription:{
         type: DataTypes.BOOLEAN
+    },
+    deleted: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+      defaultValue: false
     }
   },
    {
