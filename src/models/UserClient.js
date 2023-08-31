@@ -24,11 +24,12 @@ module.exports = (sequelize) => {
         },
         password: {
             type: DataTypes.STRING,
-            allowNull: false
+            allowNull: true
         },
         dni: {
             type: DataTypes.INTEGER,
-            allowNull: false
+            allowNull: false,
+            unique: true
         },
         dniType: {
             type: DataTypes.STRING,
@@ -61,6 +62,11 @@ module.exports = (sequelize) => {
         activePlan:{
             type: DataTypes.BOOLEAN,
             defaultValue: true
+        },
+        emailRegister:{
+            type: DataTypes.STRING,
+            allowNull: true,
+            unique: true
         }
     },
    {

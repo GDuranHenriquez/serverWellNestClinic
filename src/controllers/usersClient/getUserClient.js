@@ -16,12 +16,22 @@ async function getUserClient(req, res){
     }if(name){
       const userClient = await UserClient.findAll({
         where:{
-          name:{
-            [Op.iLike]: `%${name}%`
-          }
+          [Op.or]:[
+            {
+              name:{
+                [Op.iLike]: `%${name}%`
+              }
+            },
+            {
+              lastName: {
+                [Op.iLike]: `%${name}%`
+              }
+            }
+          ]
+          
         }
       });
-      
+
       if(userClient === null){
         res.status(200).json([]);
       }else{
