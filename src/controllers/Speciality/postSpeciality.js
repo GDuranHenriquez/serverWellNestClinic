@@ -1,6 +1,6 @@
 const { Speciality } = require("../../db");
 
-const postDoctorSpeciality = async (req, res) => {
+const postSpeciality = async (req, res) => {
     try {
         const { name } = req.body;
         if(!name) {
@@ -13,4 +13,4 @@ const postDoctorSpeciality = async (req, res) => {
     }
 };
 
-module.exports = {postDoctorSpeciality};
+module.exports = {postSpeciality};
