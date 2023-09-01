@@ -2,7 +2,7 @@ const { Doctor, Speciality } = require("../../db");
 
 const postDoctors = async (req, res) => {
 try {
-    const { name, lastName, phone, email, speciality } = req.doby;
+    const { name, lastName, phone, email, speciality } = req.body;
     if(!name || !lastName || !phone || !email) {
         return res.status(403).json({error: "Some data is missing"});
     }
