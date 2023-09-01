@@ -10,7 +10,7 @@ const clientUserRouter = Router();
 clientUserRouter.post('/', postUserClient);
 clientUserRouter.post('/register', posRegisterAcountUser);
 clientUserRouter.get('/validateUser', getValidateUsername);
-clientUserRouter.get('/login', postLoginUserClient);
+clientUserRouter.post('/login', postLoginUserClient);
 clientUserRouter.get('/isMember/:ID', getIsMember);
 clientUserRouter.get('/', getUserClient);
 
