@@ -39,7 +39,7 @@ server.use('/userClient', clientUserRouter);
 server.use('/plan', planRouter);
 server.use('/doctor', routerDoctor);
 server.use('/detail', routerDetailSale);
-server.use('/detailsale', routerSale);
+server.use('/detailSale', routerSale);
 server.use('/products', productRouter);
 server.use('/speciality', routerSpeciality);
 
