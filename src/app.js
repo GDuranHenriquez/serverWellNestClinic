@@ -4,6 +4,10 @@ const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const cors = require('cors');
 
+//swagger
+const swaggerUI = require('swagger-ui-express');
+const swaggerDocument = require('./docsSwagger/openapi.json')
+
 
 //All Routes.
 const clientUserRouter = require('./routes/routerUserClient'); 
@@ -20,7 +24,7 @@ const server = express();
 
 server.name = 'API WELLNEST CLINIC';
 
-
+//middlewares
 server.use(bodyParser.urlencoded({ extended: true, limit: '100mb' }));
 server.use(bodyParser.json({ limit: '100mb' }));
 server.use(cookieParser());
@@ -35,6 +39,7 @@ server.use((req, res, next) => {
 server.use(cors());
 
 //server.use('/', routes);
+server.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerDocument))
 server.use('/userClient', clientUserRouter);
 server.use('/plan', planRouter);
 server.use('/doctor', routerDoctor);
