@@ -10,4 +10,4 @@ const getDoctors = async (req, res) => {
     }
 };
 
-module.exports = getDoctors;
+module.exports = {getDoctors};
