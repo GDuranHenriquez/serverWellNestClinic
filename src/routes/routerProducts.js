@@ -1,8 +1,8 @@
 const { Router } = require("express");
 
-const { getProducts } = require("../../PF/PF/serverWellNestClinic/src/controllers/Products/getProducts");
-const { deleteProduct } = require("../../PF/PF/serverWellNestClinic/src/controllers/Products/deleteProduct");
-const { postProduct } = require("../../PF/PF/serverWellNestClinic/src/controllers/Products/postProduct");
+const { getProducts } = require("../controllers/Products/getProducts");
+const { deleteProduct } = require("../controllers/Products/deleteProduct");
+const { postProduct } = require("../controllers/Products/postProduct");
 
 const productRouter = Router();
 productRouter.get("/farmacy", getProducts);
