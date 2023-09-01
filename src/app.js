@@ -9,6 +9,8 @@ const cors = require('cors');
 const clientUserRouter = require('./routes/routerUserClient'); 
 const planRouter = require('./routes/routerPlan');
 const routerDoctor = require("./routes/routerDoctors");
+const productRouter = require("./routes/routerProducts");
+const routerSpeciality = require('./routes/routerSpeciality');
 
 require('./db.js');
 
@@ -34,6 +36,8 @@ server.use(cors());
 server.use('/userClient', clientUserRouter);
 server.use('/plan', planRouter);
 server.use('/doctor', routerDoctor);
+server.use('/product', productRouter);
+server.use("/speciality", routerSpeciality);
 
 
 
