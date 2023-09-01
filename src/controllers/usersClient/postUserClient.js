@@ -1,5 +1,5 @@
 const { UserClient, Plan } = require('../../db.js')
-const getTodayCountry = require('../../middleware/getHourCountry.js');
+const getTodayCountry = require('../../utils/getHourCountry.js');
 
 async function postUserClient(req, res){
   try {

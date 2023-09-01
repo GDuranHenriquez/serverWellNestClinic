@@ -1,6 +1,6 @@
 const { UserClient } = require('../../db');
-const { encrypPass } = require('../../middleware/crypPass.js');
-const { validateUserName } = require('../../middleware/validateUserName');
+const { encrypPass } = require('../../utils/crypPass.js');
+const { validateUserName } = require('../../utils/validateUserName');
 
 async function posRegisterAcountUser(req, res){
   try {

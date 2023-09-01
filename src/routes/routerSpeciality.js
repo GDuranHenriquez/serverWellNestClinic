@@ -1,7 +1,7 @@
 const { Router } = require("express");
 
-const {getSpeciality} = require("../controllers/Speciality/getSpeciality");
-const {postSpeciality} = require("../controllers/Speciality/postSpeciality");
+const {getSpeciality} = require("../controllers/speciality/getSpeciality");
+const {postSpeciality} = require("../controllers/speciality/postSpeciality");
 
 const routerSpeciality = Router();
 routerSpeciality.get("/", getSpeciality);

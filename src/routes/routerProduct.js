@@ -1,8 +1,8 @@
 const { Router } = require("express");
 
-const { getProducts } = require("../controllers/Products/getProducts");
-const { deleteProduct } = require("../controllers/Products/deleteProduct");
-const { postProduct } = require("../controllers/Products/postProduct");
+const { getProducts } = require("../controllers/product/getProducts");
+const { deleteProduct } = require("../controllers/product/deleteProduct");
+const { postProduct } = require("../controllers/product/postProduct");
 
 const productRouter = Router();
 productRouter.get("/", getProducts);
