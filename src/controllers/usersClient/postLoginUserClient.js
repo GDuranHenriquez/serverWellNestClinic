@@ -3,9 +3,9 @@ const { validateUserName } = require('../../middleware/validateUserName');
 const { encrypPass } = require('../../middleware/crypPass.js');
 const bcrypt = require('bcrypt');
 
-async function getLoginUserClient(req, res){
+async function postLoginUserClient(req, res){
   try {
-    const { email, dni, password } = req.body;
+    const { userName, dni, password } = req.body;
 
     const user = await UserClient.findOne({ where: { dni: dni } });
     if(user === null){
@@ -16,7 +16,7 @@ async function getLoginUserClient(req, res){
     var data = user.dataValues;    
     const match = await bcrypt.compare(password, data.password);
    
-    if(match && data.emailRegister === email){
+    if(match && data.emailRegister === userName){
       return res.status(200).json({pass: true, message: 'Correct username and password'})
     }else{
       return res.status(403).json({pass: false, message: "Incorrect password or user"})
@@ -27,4 +27,4 @@ async function getLoginUserClient(req, res){
   }
 }
 
-module.exports = { getLoginUserClient };
+module.exports = { postLoginUserClient };

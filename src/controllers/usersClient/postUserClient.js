@@ -12,13 +12,13 @@ async function postUserClient(req, res){
 
     
     if(!name || !lastName || !email || !dni || !dniType || !birthDate || !address || !upToDate || !backupContact || !plan){
-      return res.status(400).json({error: 'mandatory data is missing'})
+      return res.status(403).json({error: 'mandatory data is missing'})
     };
 
     //User -> Plan. belongsTo
 
     if(upToDateUserClient.getTime() <= todayCountry.getTime()){
-      return res.status(400).json({error:'The end date of the plan cannot be less than the current date'});
+      return res.status(403).json({error:'The end date of the plan cannot be less than the current date'});
     };
 
     const planClient = await Plan.findByPk(plan);
