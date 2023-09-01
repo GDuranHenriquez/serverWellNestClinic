@@ -1,10 +1,10 @@
 const { Router } = require("express");
 
-const {getSpeciality} = require("../controllers/speciality/getSpeciality");
+const {getSpecialities} = require("../controllers/speciality/getSpecialities");
 const {postSpeciality} = require("../controllers/speciality/postSpeciality");
 
 const routerSpeciality = Router();
-routerSpeciality.get("/", getSpeciality);
+routerSpeciality.get("/", getSpecialities);
 routerSpeciality.post("/", postSpeciality);
 
 module.exports = routerSpeciality;

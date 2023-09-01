@@ -46,7 +46,7 @@ server.use('/userClient', clientUserRouter);
 server.use('/plan', planRouter);
 server.use('/doctor', routerDoctor);
 server.use('/detail', routerDetailSale);
-server.use('/detailSale', routerSale);
+server.use('/sale', routerSale);
 server.use('/product', productRouter);
 server.use('/speciality', routerSpeciality);
 server.use('/drug', drugRouter);
