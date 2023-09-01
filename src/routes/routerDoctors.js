@@ -6,9 +6,9 @@ const { postDoctors } = require("../controllers/Doctors/postDoctors");
 const { postDoctorSpeciality } = require("../controllers/Doctors/postDoctorSpeciality");
 
 const routerDoctor = Router();
-routerDoctor.get("/getDoctor/:id", getDoctorById);
-routerDoctor.get("/doctors", getDoctors);
-routerDoctor.post("/postDoctor", postDoctors);
-routerDoctor.post("/doctorSpeciality", postDoctorSpeciality);
+routerDoctor.get("/:id", getDoctorById);
+routerDoctor.get("/", getDoctors);
+routerDoctor.post("/", postDoctors);
+routerDoctor.post("/Speciality", postDoctorSpeciality);
 
 module.exports = routerDoctor;
