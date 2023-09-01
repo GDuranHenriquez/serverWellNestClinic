@@ -14,8 +14,6 @@ async function getIsMember(req, res){
       };
       return res.status(200).json(data);
     }
-
-
   } catch (error) {
     
   }
