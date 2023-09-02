@@ -12,12 +12,13 @@ const swaggerDocument = require('./docsSwagger/openapi.json')
 //All Routes.
 const clientUserRouter = require('./routes/routerUserClient'); 
 const planRouter = require('./routes/routerPlan');
-const routerDoctor = require("./routes/routerDoctors");
+const routerDoctor = require("./routes/routerDoctor");
 const routerDetailSale = require('./routes/routerDetailSale')
 const routerSale = require('./routes/routerSale')
-const productRouter = require("./routes/routerProducts");
+const productRouter = require("./routes/routerProduct");
 const routerSpeciality = require("./routes/routerSpeciality");
 const drugRouter = require("./routes/routerDrug");
+const laboratoryRouter = require("./routes/routerLaboratory");
 
 require('./db.js');
 
@@ -45,10 +46,11 @@ server.use('/userClient', clientUserRouter);
 server.use('/plan', planRouter);
 server.use('/doctor', routerDoctor);
 server.use('/detail', routerDetailSale);
-server.use('/detailSale', routerSale);
-server.use('/products', productRouter);
+server.use('/sale', routerSale);
+server.use('/product', productRouter);
 server.use('/speciality', routerSpeciality);
 server.use('/drug', drugRouter);
+server.use('/lab', laboratoryRouter)
 
 
 // Error catching endware.

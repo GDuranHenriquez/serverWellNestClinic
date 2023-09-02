@@ -6,9 +6,9 @@ const getDetailSale = async (req, res) => {
      
     try {
 
-        const {id} = req.params
-        const DetailSales = await DetailSale.findAll({where: {DetailSale_Sale: id}, includes : [{model: Product , attributes:['name']}]});
-        return res.stauts(200).json(DetailSales);
+        const {saleId} = req.params
+        const detailSales = await DetailSale.findAll({where: {DetailSale_Sale: saleId}, includes : [{model: Product , attributes:['name']}]});
+        return res.stauts(200).json(detailSales);
     } catch (error) {
         return res.status(500).json({error: error.message});
     }

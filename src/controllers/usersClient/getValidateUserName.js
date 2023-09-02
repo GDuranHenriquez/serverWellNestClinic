@@ -1,4 +1,4 @@
-const { validateUserName } = require('../../middleware/validateUserName');
+const { validateUserName } = require('../../utils/validateUserName');
 
 async function getValidateUsername(req, res){
   try {

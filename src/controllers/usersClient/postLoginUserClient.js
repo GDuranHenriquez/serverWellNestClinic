@@ -1,6 +1,6 @@
 const { UserClient } = require('../../db');
-const { validateUserName } = require('../../middleware/validateUserName');
-const { encrypPass } = require('../../middleware/crypPass.js');
+const { validateUserName } = require('../../utils/validateUserName');
+const { encrypPass } = require('../../utils/crypPass.js');
 const bcrypt = require('bcrypt');
 
 async function postLoginUserClient(req, res){
