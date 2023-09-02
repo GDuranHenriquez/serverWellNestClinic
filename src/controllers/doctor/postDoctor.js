@@ -15,4 +15,4 @@ try {
     }
 };
 
-module.exports = { postDoctors };
+module.exports = { postDoctor };
