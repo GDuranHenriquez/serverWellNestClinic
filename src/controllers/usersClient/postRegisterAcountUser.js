@@ -10,7 +10,7 @@ async function posRegisterAcountUser(req, res){
       return res.status(403).json({error: 'mandatory data is missing'})
     };
 
-    if(password.length >= 8 && password.length <= 32 ){
+    if(!(password.length >= 8 && password.length <= 32) ){
       return res.status(403).json({error: 'password must be between 8 and 32 characters'});
     };
 
