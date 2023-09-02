@@ -14,4 +14,4 @@ try {
     }
 };
 
-module.exports = postLaboratory;
+module.exports = {postLaboratory};

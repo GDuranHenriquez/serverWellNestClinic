@@ -1,4 +1,4 @@
-const { Doctor, Speciality } = require("../../db");
+const { Doctor } = require("../../db");
 
 const postDoctors = async (req, res) => {
 try {
@@ -15,4 +15,4 @@ try {
     }
 };
 
-module.exports = {postDoctors};
+module.exports = { postDoctors };
