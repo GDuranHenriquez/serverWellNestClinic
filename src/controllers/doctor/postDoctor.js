@@ -1,6 +1,6 @@
 const { Doctor } = require("../../db");
 
-const postDoctors = async (req, res) => {
+const postDoctor = async (req, res) => {
 try {
     const { name, lastName, phone, email, speciality, address } = req.body;
     if(!name || !lastName || !phone || !email || !address) {

@@ -1,6 +1,6 @@
 const { Speciality } = require("../../db");
 
-const getSpeciality = async (req, res) => {
+const getSpecialities = async (req, res) => {
     try {
         const specialities = Speciality.findAll();
         return res.status(200).json(specialities);
@@ -9,4 +9,4 @@ const getSpeciality = async (req, res) => {
     }
 };
 
-module.exports = {getSpeciality};
+module.exports = {getSpecialities};
