@@ -15,7 +15,7 @@ async function postPlan(req, res){
       }
       
     }else{
-      return res.status(400).json({error: 'Plan not allowed in prebia configuration'});
+      return res.status(400).json({error: 'Plan not allowed in previuos configuration'});
     };    
     
   } catch (error) {

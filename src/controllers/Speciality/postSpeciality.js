@@ -4,7 +4,7 @@ const postSpeciality = async (req, res) => {
     try {
         const { name } = req.body;
         if(!name) {
-            return res.status(403).json({error: "Some data is missing"});
+            return res.status(403).json({error: "Mandatory data is missing"});
         }
         const speciality = await Speciality.create({ name })
         return res.status(200).json(speciality);
