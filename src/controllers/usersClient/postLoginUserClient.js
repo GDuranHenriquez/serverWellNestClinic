@@ -17,7 +17,7 @@ async function postLoginUserClient(req, res){
     const match = await bcrypt.compare(password, data.password);
    
     if(match && data.emailRegister === userName){
-      return res.status(200).json({pass: true, message: 'Correct username and password'})
+      return res.status(200).json({pass: true, message: 'Correct username and password', id:user.id})
     }else{
       return res.status(403).json({pass: false, message: "Incorrect password or user"})
     }
