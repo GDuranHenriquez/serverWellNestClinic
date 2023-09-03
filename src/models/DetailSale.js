@@ -9,7 +9,7 @@ module.exports = (sequelize) => {
       allowNull: false,
       primaryKey: true,      
     },
-    ammount: {
+    amount: {
       type: DataTypes.INTEGER,
       allowNull: false,
     }
