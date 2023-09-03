@@ -1,7 +1,7 @@
 const { Router } = require("express");
 
-const { getSaleByUser } = require("../controllers/Sale/getSale.js");
+const { getSaleByUser } = require("../controllers/sale/getSale");
 const routerSaleByUser = Router();
-routerSaleByUser.get("/SaleByUser", getSaleByUser);
+routerSaleByUser.get("/:userId", getSaleByUser);
 
 module.exports = routerSaleByUser;

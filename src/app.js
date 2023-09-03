@@ -4,14 +4,22 @@ const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const cors = require('cors');
 
+//swagger
+const swaggerUI = require('swagger-ui-express');
+const swaggerDocument = require('./docsSwagger/openapi.json')
+
 
 //All Routes.
 const clientUserRouter = require('./routes/routerUserClient'); 
 const planRouter = require('./routes/routerPlan');
-const routerDoctor = require("./routes/routerDoctors");
+const routerDoctor = require("./routes/routerDoctor");
 const routerDetailSale = require('./routes/routerDetailSale')
 const routerSale = require('./routes/routerSale')
-const productRouter = require("./routes/routerProducts");
+const productRouter = require("./routes/routerProduct");
+const routerSpeciality = require("./routes/routerSpeciality");
+const drugRouter = require("./routes/routerDrug");
+const laboratoryRouter = require("./routes/routerLaboratory");
+const routerPresentationType = require('./routes/routerPresentationType')
 
 require('./db.js');
 
@@ -19,7 +27,7 @@ const server = express();
 
 server.name = 'API WELLNEST CLINIC';
 
-
+//middlewares
 server.use(bodyParser.urlencoded({ extended: true, limit: '100mb' }));
 server.use(bodyParser.json({ limit: '100mb' }));
 server.use(cookieParser());
@@ -34,12 +42,17 @@ server.use((req, res, next) => {
 server.use(cors());
 
 //server.use('/', routes);
+server.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerDocument))
 server.use('/userClient', clientUserRouter);
 server.use('/plan', planRouter);
 server.use('/doctor', routerDoctor);
 server.use('/detail', routerDetailSale);
-server.use('/detailsale', routerSale);
-server.use('/products', productRouter);
+server.use('/sale', routerSale);
+server.use('/product', productRouter);
+server.use('/speciality', routerSpeciality);
+server.use('/drug', drugRouter);
+server.use('/lab', laboratoryRouter)
+server.use('/presentation-type', routerPresentationType)
 
 
 // Error catching endware.

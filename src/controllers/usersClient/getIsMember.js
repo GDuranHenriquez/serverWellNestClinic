@@ -12,10 +12,8 @@ async function getIsMember(req, res){
         name: clientMenber.name,
         lastName: clientMenber.lastName
       };
-      return res.status(403).json(data);
+      return res.status(200).json(data);
     }
-
-
   } catch (error) {
     
   }

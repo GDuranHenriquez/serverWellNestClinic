@@ -24,7 +24,7 @@ module.exports = (sequelize) => {
         },
         password: {
             type: DataTypes.STRING,
-            allowNull: true
+            allowNull: true,
         },
         dni: {
             type: DataTypes.INTEGER,
@@ -71,8 +71,6 @@ module.exports = (sequelize) => {
     },
    {
         timestamps: false,
-        createAt: false,
-        updateAt: false,
         tableName: 'UserClient'
     });
 };

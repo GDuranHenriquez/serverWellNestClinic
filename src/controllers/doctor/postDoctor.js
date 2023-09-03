@@ -1,10 +1,10 @@
-const { Doctor, Speciality } = require("../../db");
+const { Doctor } = require("../../db");
 
-const postDoctors = async (req, res) => {
+const postDoctor = async (req, res) => {
 try {
     const { name, lastName, phone, email, speciality, address } = req.body;
     if(!name || !lastName || !phone || !email || !address) {
-        return res.status(403).json({error: "Some data is missing"});
+        return res.status(403).json({error: "Mandatory data is missing"});
     }
         const doctor = await Doctor.create({name, lastName, email, phone, speciality, address});
         doctor.addSpeciality(speciality);
@@ -15,4 +15,4 @@ try {
     }
 };
 
-module.exports = {postDoctors};
+module.exports = { postDoctor };
