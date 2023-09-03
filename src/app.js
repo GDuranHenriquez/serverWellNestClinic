@@ -19,6 +19,7 @@ const productRouter = require("./routes/routerProduct");
 const routerSpeciality = require("./routes/routerSpeciality");
 const drugRouter = require("./routes/routerDrug");
 const laboratoryRouter = require("./routes/routerLaboratory");
+const routerPresentationType = require('./routes/routerPresentationType')
 
 require('./db.js');
 
@@ -51,6 +52,7 @@ server.use('/product', productRouter);
 server.use('/speciality', routerSpeciality);
 server.use('/drug', drugRouter);
 server.use('/lab', laboratoryRouter)
+server.use('/presentation-type', routerPresentationType)
 
 
 // Error catching endware.

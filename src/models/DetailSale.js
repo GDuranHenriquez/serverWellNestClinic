@@ -9,14 +9,12 @@ module.exports = (sequelize) => {
       allowNull: false,
       primaryKey: true,      
     },
-    ammount: {
+    amount: {
       type: DataTypes.INTEGER,
       allowNull: false,
     }
 },
 {
      timestamps: false,
-     createAt: false,
-     updateAt: false,
      tableName: 'DetailSale'
  })}
