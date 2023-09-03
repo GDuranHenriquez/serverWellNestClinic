@@ -15,9 +15,6 @@ try {
         return res.status(403).json({error: "No existen las especialidades requeridas"})
     }
 
-    // if(Object.keys(allSpeciality).length === findSpeciality.length) {
-    //     return res.status(403).json({error: "Algunas de las especialidades requeridas no existen"})
-    // }
     console.log((especialidad))
     
     const doctor = await Doctor.create({name, lastName, email, phone, address});
