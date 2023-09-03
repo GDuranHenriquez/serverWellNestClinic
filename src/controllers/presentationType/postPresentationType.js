@@ -6,7 +6,7 @@ async function postPresentationType(req, res){
     if(!name) {
       return res.status(401).json({error: 'Mandatory data is missing'})
     }
-    const [presentationType, created] = await PresentationType.findOrCreate({where: {type: name}});
+    const [presentationType, created] = await PresentationType.findOrCreate({where: {type: name.toLowerCase()}});
     if(created) {
         return res.status(200).json(presentationType)
     } else {
