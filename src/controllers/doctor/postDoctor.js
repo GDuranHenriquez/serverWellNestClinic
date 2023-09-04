@@ -28,7 +28,7 @@ try {
         }
         return res.status(200).json(response);
     }
-    return res.status(403).json({error: `Doctor's Email: "${email}", allready exist in data base`})
+    return res.status(403).json({error: `Doctor's Email: "${email}", already exist in data base`})
     
 } catch (error) {
     return res.status(500).send({error: error.message});
