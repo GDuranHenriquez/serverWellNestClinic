@@ -1,4 +1,3 @@
-const { forEach } = require("mathjs");
 const { Doctor, Speciality } = require("../../db");
 const { Op } = require("sequelize");
 
