@@ -36,7 +36,7 @@ module.exports = (sequelize) => {
             allowNull: false
         },
         birthDate: {
-            type: DataTypes.DATE,
+            type: DataTypes.DATEONLY,
             allowNull: false
         },
         address: {
@@ -48,7 +48,7 @@ module.exports = (sequelize) => {
             defaultValue: false
         },
         upToDate: {
-            type: DataTypes.DATE,
+            type: DataTypes.DATEONLY,
             allowNull: false
         },
         backupContact: {

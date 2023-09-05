@@ -17,11 +17,7 @@
     },
     {
       "name": "Plan",
-      "description": "These terminals manage all plan information."
-    },
-    {
-      "name": "Speciality",
-      "description": "These terminals manage all the information on the doctors' specialties."
+      "description": "These endpoins manage all the plans information."
     }
   ],
   "paths": {
@@ -283,36 +279,62 @@
         "tags": [
           "Member Clients"
         ],
-        "summary": "Searches all registered users in the DB as well as allowing query to search a single item by id or name or DNI.",
+        "summary": "searches for all users registered in the DB.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/token"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "(ok)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/getClientsUsers"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "(error)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ServerError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },    
+    "/plan":{
+      "get": {
+        "tags": [
+          "Plan"
+        ],
+        "summary": "Returns an array of objects with the information of all the plans or an empty array if no plans are available.",
         "parameters": [
           {
             "$ref": "#/components/parameters/token"
           },
           {
-            "name": "name",
-            "in": "query",
-            "description": "name of the userClient",
-            "required": false,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
             "name": "id",
             "in": "query",
-            "description": "UUID of the userClient to search",
-            "required": false,
+            "description": "id (primary Key) of plan",
+            "require": false,
             "schema": {
-              "type": "string"
+              "type": "integer"
             }
           },
           {
-            "name": "DNI",
+            "name": "name",
             "in": "query",
-            "description": "The legal identification number of the client to search for.",
-            "required": false,
+            "description": "name of plan",
+            "require": false,
             "schema": {
-              "type": "integer"
+              "type": "string"
             }
           }
         ],
@@ -327,245 +349,10 @@
                       "$ref": "#/components/schemas/getClientsUsers"
                     },
                     {
-                      "$ref": "#/components/schemas/getClientsUsersName"
+                      "$ref": "#/components/schemas/ServerError"
                     },
                     {
-                      "$ref": "#/components/schemas/getClientsUsersID"
-                    }
-                  ]
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "(error)",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ServerError"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/plan/": {
-      "get": {
-        "tags": [
-          "Plan"
-        ],
-        "summary": "Searches all plans registered in the DB as well as allowing query to search a single item by id and name.",
-        "parameters": [
-          {
-            "$ref": "#/components/parameters/token"
-          },
-          {
-            "name": "name",
-            "in": "query",
-            "description": "name of the Plan",
-            "required": false,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "id",
-            "in": "query",
-            "description": "UUID of the userClient to search",
-            "required": false,
-            "schema": {
-              "type": "integer"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "(ok)",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "oneOf": [
-                    {
-                      "$ref": "#/components/schemas/getPlan"
-                    },
-                    {
-                      "$ref": "#/components/schemas/getPlamId"
-                    },
-                    {
-                      "$ref": "#/components/schemas/getPlamName"
-                    }
-                  ]
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "(error)",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ServerError"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/plan/{name}": {
-      "post": {
-        "tags": [
-          "Plan"
-        ],
-        "summary": "Registers a plan by receiving its name by params",
-        "parameters": [
-          {
-            "$ref": "#/components/parameters/token"
-          },
-          {
-            "name": "name",
-            "in": "path",
-            "description": "name of the plan to be searched",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "(ok)",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/postPlanOk"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "(error)",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ServerError"
-                }
-              }
-            }
-          },
-          "409": {
-            "description": "(Conflict)",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/postPlanDuplicate"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/speciality": {
-      "post": {
-        "tags": [
-          "Speciality"
-        ],
-        "summary": "registers a specialty by receiving its name by body",
-        "parameters": [
-          {
-            "$ref": "#/components/parameters/token"
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/BodySpecialityPost"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "description": "(ok)",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/postPlanOk"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "(error)",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/400BodySpecialityPost"
-                }
-              }
-            }
-          },
-          "409": {
-            "description": "(Conflict)",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/409BodySpecialityPost"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/speciality/": {
-      "get": {
-        "tags": [
-          "Speciality"
-        ],
-        "summary": "Searches all specialties registered in the DB as well as allowing queries to search for a single item by id and name.",
-        "parameters": [
-          {
-            "$ref": "#/components/parameters/token"
-          },
-          {
-            "name": "name",
-            "in": "query",
-            "description": "name of the Speciality",
-            "required": false,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "id",
-            "in": "query",
-            "description": "id of the Speciality to search",
-            "required": false,
-            "schema": {
-              "type": "integer"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "(ok)",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "oneOf": [
-                    {
-                      "$ref": "#/components/schemas/getSpeciality"
-                    },
-                    {
-                      "$ref": "#/components/schemas/getSpecialityId"
-                    },
-                    {
-                      "$ref": "#/components/schemas/getSpecialityName"
+                      "$ref": "#/components/schemas/ResponseLogin"
                     }
                   ]
                 }
@@ -586,6 +373,11 @@
       }
     }
   },
+
+
+
+
+
   "components": {
     "responses": {
       "Unauthorized": {
@@ -886,275 +678,40 @@
           }
         }
       },
-      "getClientsUsersID": {
+      "getPlanId": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string",
-            "description": "id of the DB record (type UUID)."
+            "description": "id of the DB record (type INT)."
           },
           "name": {
             "type": "string",
-            "description": "First Name of the partner client"
-          },
-          "lastName": {
-            "type": "string",
-            "description": "Last Name of the partner client"
-          },
-          "email": {
-            "type": "string",
-            "description": "Email Name of the partner client"
-          },
-          "dni": {
-            "type": "string",
-            "description": "partner's legal identification number"
-          },
-          "dniType": {
-            "type": "string",
-            "description": "Type of partner's legal ID"
-          },
-          "birthDate": {
-            "type": "string",
-            "description": "Partner's date of birth in the format \"YYYYY-MM-DD\"."
-          },
-          "address": {
-            "type": "string",
-            "description": "Partner's address."
-          },
-          "upToDate": {
-            "type": "string",
-            "description": "Member's plan expiration date, this must be greater than the current date of registration in Argentina/Buenos Aires in the format \"YYYYY-MM-DD\"."
-          },
-          "backupContact": {
-            "type": "string",
-            "description": "User's contact information."
-          },
-          "imageUrl": {
-            "type": "string",
-            "description": "Partner's image URL (Can be a null value)."
-          },
-          "plan": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "integer",
-                "description": "id of the DB record"
-              },
-              "name": {
-                "type": "string",
-                "description": "plan name"
-              }
-            }
-          }
+            "description": "Name of the plan"
+          }          
         }
       },
-      "getClientsUsersName": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string",
-            "description": "id of the DB record (type UUID)."
-          },
-          "name": {
-            "type": "string",
-            "description": "First Name of the partner client"
-          },
-          "lastName": {
-            "type": "string",
-            "description": "Last Name of the partner client"
-          },
-          "email": {
-            "type": "string",
-            "description": "Email Name of the partner client"
-          },
-          "dni": {
-            "type": "string",
-            "description": "partner's legal identification number"
-          },
-          "dniType": {
-            "type": "string",
-            "description": "Type of partner's legal ID"
-          },
-          "birthDate": {
-            "type": "string",
-            "description": "Partner's date of birth in the format \"YYYYY-MM-DD\"."
-          },
-          "address": {
-            "type": "string",
-            "description": "Partner's address."
-          },
-          "upToDate": {
-            "type": "string",
-            "description": "Member's plan expiration date, this must be greater than the current date of registration in Argentina/Buenos Aires in the format \"YYYYY-MM-DD\"."
-          },
-          "backupContact": {
-            "type": "string",
-            "description": "User's contact information."
-          },
-          "imageUrl": {
-            "type": "string",
-            "description": "Partner's image URL (Can be a null value)."
-          },
-          "plan": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "integer",
-                "description": "id of the DB record"
-              },
-              "name": {
-                "type": "string",
-                "description": "plan name"
-              }
-            }
-          }
-        }
-      },
-      "getPlan": {
+      "getPlan":{
         "type": "array",
         "items": {
           "type": "object",
           "properties": {
-            "id": {
-              "type": "string",
-              "description": "id or primary key of reference in the DB of the plan to search for."
-            },
+            "id":{
+              "type":"integer",
+              "description": "id of the DB record (type INT)."
+              },            
             "name": {
-              "type": "string",
-              "description": "name of the plan to search"
-            }
-          }
+                "type": "string",
+                "description": "Name of the plan"
+              }
+          }     
         }
       },
-      "getPlamId": {
+      "getPlanVacio": {
         "type": "object",
-        "properties": {
-          "id": {
-            "type": "string",
-            "description": "id or primary key of reference in the DB of the plan to search for."
-          },
-          "name": {
-            "type": "string",
-            "description": "name of the plan to search"
-          }
-        }
-      },
-      "getPlamName": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string",
-            "description": "id or primary key of reference in the DB of the plan to search for."
-          },
-          "name": {
-            "type": "string",
-            "description": "name of the plan to search"
-          }
-        }
-      },
-      "postPlanOk": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string",
-            "description": "id or primary key of reference in the DB of the plan to search for."
-          },
-          "name": {
-            "type": "string",
-            "description": "name of the plan to search"
-          }
-        }
-      },
-      "postPlanDuplicate": {
-        "type": "object",
-        "properties": {
-          "error": {
-            "type": "string",
-            "description": "request not valid"
-          },
-          "message": {
-            "type": "string",
-            "description": "Plan {name:} {name}, is not allowed to be registered"
-          }
-        }
-      },
-      "BodySpecialityPost": {
-        "type": "object",
-        "properties": {
-          "name": {
-            "type": "string",
-            "description": "name of the speciality to be registered"
-          }
-        }
-      },
-      "400BodySpecialityPost": {
-        "type": "object",
-        "properties": {
-          "error": {
-            "type": "string",
-            "description": "request not valid"
-          },
-          "message": {
-            "type": "string",
-            "description": "Message error"
-          }
-        }
-      },
-      "409BodySpecialityPost": {
-        "type": "object",
-        "properties": {
-          "error": {
-            "type": "string",
-            "description": "request not valid"
-          },
-          "message": {
-            "type": "string",
-            "description": "Speciality {name:} ${name}, already exist"
-          }
-        }
-      },
-      "getSpeciality": {
-        "type": "array",
-        "items": {
-          "type": "object",
-          "properties": {
-            "id": {
-              "type": "string",
-              "description": "id or primary key of reference in the DB of the speciality to search for."
-            },
-            "name": {
-              "type": "string",
-              "description": "name of the speciality to search"
-            }
-          }
-        }
-      },
-      "getSpecialityId": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string",
-            "description": "id or primary key of reference in the DB of the speciality to search for."
-          },
-          "name": {
-            "type": "string",
-            "description": "name of the speciality to search"
-          }
-        }
-      },
-      "getSpecialityName": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string",
-            "description": "id or primary key of reference in the DB of the speciality to search for."
-          },
-          "name": {
-            "type": "string",
-            "description": "name of the speciality to search"
-          }
-        }
-      }
+        "properties": {}
+      }          
     }
   }
+
 }

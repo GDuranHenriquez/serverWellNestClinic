@@ -17,7 +17,7 @@ module.exports = (sequelize) => {
     //     isIn: [['gold','bronze','silver']]
     //   }
       name: {
-        type: DataTypes.ENUM('gold','bronze','silver'),
+        type: DataTypes.STRING,
         allowNull: false,
         unique:true
     }

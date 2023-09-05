@@ -6,7 +6,7 @@ const { postDoctor } = require("../controllers/doctor/postDoctor");
 
 const routerDoctor = Router();
 routerDoctor.get("/:id", getDoctorById);
-routerDoctor.get("/", getDoctors);
 routerDoctor.post("/", postDoctor);
+routerDoctor.get("/", getDoctors);
 
 module.exports = routerDoctor;
