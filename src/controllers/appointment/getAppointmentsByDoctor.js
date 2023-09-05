@@ -1,6 +1,6 @@
-const {Appointment, Doctor} = require('../../db');
+const {Appointment} = require('../../db');
 
-const getAppointmentByUser = async (req, res) => {
+const getAppointmentsByUser = async (req, res) => {
     try {
         const {doctorId} = req.params;
         const appointments = await Appointment.findAll({
@@ -13,4 +13,4 @@ const getAppointmentByUser = async (req, res) => {
     }
 }
 
-module.exports = getAppointmentByUser
+module.exports = getAppointmentsByUser
