@@ -22,6 +22,10 @@
     {
       "name": "Speciality",
       "description": "These terminals manage all the information on the doctors' specialties."
+    },
+    {
+      "name": "DNI Type",
+      "description": "These terminals manage all the information on the DNI types."
     }
   ],
   "paths": {
@@ -494,7 +498,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/postPlanOk"
+                  "$ref": "#/components/schemas/postSpecialityOk"
                 }
               }
             }
@@ -584,6 +588,124 @@
           }
         }
       }
+    },
+    "/dni-type": {
+      "post": {
+        "tags": [
+          "DNI Type"
+        ],
+        "summary": "registers a DNI by receiving its type by body",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/token"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BodyDniType"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "(ok)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/postDniTypeOk"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "(error)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/400BodyDniTypePost"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "(Conflict)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/409BodyDniTypePost"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/dni-type/": {
+      "get": {
+        "tags": [
+          "DNI Type"
+        ],
+        "summary": "Searches all specialties registered in the DB as well as allowing queries to search for a single item by id and name.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/token"
+          },
+          {
+            "name": "type",
+            "in": "query",
+            "description": "name of the Speciality",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "id",
+            "in": "query",
+            "description": "id of the Speciality to search",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "(ok)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/getDniType"
+                    },
+                    {
+                      "$ref": "#/components/schemas/getDniTypeId"
+                    },
+                    {
+                      "$ref": "#/components/schemas/getDniTypeType"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "(error)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ServerError"
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
@@ -633,8 +755,8 @@
             "description": "partner's legal identification number"
           },
           "dniType": {
-            "type": "string",
-            "description": "Type of partner's legal ID"
+            "type": "integer",
+            "description": "type of DNI, only the id associated to the DNI must be sent."
           },
           "birthDate": {
             "type": "string",
@@ -658,7 +780,7 @@
           },
           "plan": {
             "type": "integer",
-            "description": "Member's plan, only the plan ID must be sent."
+            "description": "Member's plan, only the plan id must be sent."
           }
         }
       },
@@ -686,8 +808,17 @@
             "description": "partner's legal identification number"
           },
           "dniType": {
-            "type": "string",
-            "description": "Type of partner's legal ID"
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "integer",
+                "description": "id of the DB record"
+              },
+              "name": {
+                "type": "string",
+                "description": "Type of dni"
+              }
+            }
           },
           "birthDate": {
             "type": "string",
@@ -846,10 +977,6 @@
               "type": "string",
               "description": "partner's legal identification number"
             },
-            "dniType": {
-              "type": "string",
-              "description": "Type of partner's legal ID"
-            },
             "birthDate": {
               "type": "string",
               "description": "Partner's date of birth in the format \"YYYYY-MM-DD\"."
@@ -882,6 +1009,19 @@
                   "description": "plan name"
                 }
               }
+            },
+            "dniType": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "integer",
+                  "description": "id of the DB record"
+                },
+                "name": {
+                  "type": "string",
+                  "description": "Type of DNI"
+                }
+              }
             }
           }
         }
@@ -908,10 +1048,6 @@
           "dni": {
             "type": "string",
             "description": "partner's legal identification number"
-          },
-          "dniType": {
-            "type": "string",
-            "description": "Type of partner's legal ID"
           },
           "birthDate": {
             "type": "string",
@@ -945,6 +1081,19 @@
                 "description": "plan name"
               }
             }
+          },
+          "dniType": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "integer",
+                "description": "id of the DB record"
+              },
+              "name": {
+                "type": "string",
+                "description": "Type of DNI"
+              }
+            }
           }
         }
       },
@@ -970,10 +1119,6 @@
           "dni": {
             "type": "string",
             "description": "partner's legal identification number"
-          },
-          "dniType": {
-            "type": "string",
-            "description": "Type of partner's legal ID"
           },
           "birthDate": {
             "type": "string",
@@ -1005,6 +1150,19 @@
               "name": {
                 "type": "string",
                 "description": "plan name"
+              }
+            }
+          },
+          "dniType": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "integer",
+                "description": "id of the DB record"
+              },
+              "name": {
+                "type": "string",
+                "description": "Type of DNI"
               }
             }
           }
@@ -1113,6 +1271,19 @@
           }
         }
       },
+      "postSpecialityOk": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "id or primary key of reference in the DB of the speciality."
+          },
+          "name": {
+            "type": "string",
+            "description": "name of the speciality to search"
+          }
+        }
+      },
       "getSpeciality": {
         "type": "array",
         "items": {
@@ -1152,6 +1323,96 @@
           "name": {
             "type": "string",
             "description": "name of the speciality to search"
+          }
+        }
+      },
+      "BodyDniType": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "name of the DNI type to be registered"
+          }
+        }
+      },
+      "postDniTypeOk": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "id or primary key of reference in the DB of the dni."
+          },
+          "type": {
+            "type": "string",
+            "description": "name of the DNI"
+          }
+        }
+      },
+      "409BodyDniTypePost": {
+        "type": "object",
+        "properties": {
+          "error": {
+            "type": "string",
+            "description": "request not valid"
+          },
+          "message": {
+            "type": "string",
+            "description": "Type DNI {type:} ${type}, already exist"
+          }
+        }
+      },
+      "400BodyDniTypePost": {
+        "type": "object",
+        "properties": {
+          "error": {
+            "type": "string",
+            "description": "request not valid"
+          },
+          "message": {
+            "type": "string",
+            "description": "Message error"
+          }
+        }
+      },
+      "getDniType": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "description": "id or primary key of reference in the DB of the DNI to search for."
+            },
+            "type": {
+              "type": "string",
+              "description": "name of the DNI to search"
+            }
+          }
+        }
+      },
+      "getDniTypeId": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "id or primary key of reference in the DB of the DNI to search for."
+          },
+          "type": {
+            "type": "string",
+            "description": "name of the DNI to search"
+          }
+        }
+      },
+      "getDniTypeType": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "id or primary key of reference in the DB of the DNI to search for."
+          },
+          "type": {
+            "type": "string",
+            "description": "name of the DNI to search"
           }
         }
       }

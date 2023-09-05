@@ -53,7 +53,8 @@ const {
   Drug,
   Laboratory,
   Sale,
-  DetailSale
+  DetailSale,
+  DniType
 } = sequelize.models;
 
 // N:M
@@ -70,6 +71,8 @@ DetailSale.belongsToMany(Product, {through: "product_detailSale", timestamps: fa
 // 1:1
 //add one key PlanId or id_plan to the table UserClient, according to configuration
 UserClient.belongsTo(Plan, {as:'UserClient_Plan', foreignKey: 'id_plan'});
+
+UserClient.belongsTo(DniType, {as:'UserClient_DniType', foreignKey: 'id_dniType'});
 
 Appointment.belongsTo(UserClient, {as:'Appointment_UserClient'});
 

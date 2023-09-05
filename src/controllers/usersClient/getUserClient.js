@@ -1,4 +1,4 @@
-const { UserClient, Plan } = require('../../db');
+const { UserClient, Plan, DniType } = require('../../db');
 const { Op } = require('sequelize');
 
 async function getUserClient(req, res){
@@ -9,10 +9,11 @@ async function getUserClient(req, res){
     if(id){
       const userClient = await UserClient.findByPk(id,{
         attributes: ['id', 'name','lastName',
-        'email', 'dni', 'dniType', 'birthDate', 'address', 'deleted', 'upToDate', 'backupContact',
+        'email', 'dni', 'birthDate', 'address', 'deleted', 'upToDate', 'backupContact',
         'imageUrl', 'activePlan'],
         include: [
-          {model: Plan, as: 'UserClient_Plan', required: false}
+          {model: Plan, as: 'UserClient_Plan', required: false},
+          {model: DniType, as: 'UserClient_DniType', required: false}
         ]});
       if(userClient === null){
         return res.status(200).json([]);
@@ -38,10 +39,11 @@ async function getUserClient(req, res){
           
         },
         attributes: ['id', 'name','lastName',
-        'email', 'dni', 'dniType', 'birthDate', 'address', 'deleted', 'upToDate', 'backupContact',
+        'email', 'dni', 'birthDate', 'address', 'deleted', 'upToDate', 'backupContact',
         'imageUrl', 'activePlan'],
         include: [
-          {model: Plan, as: 'UserClient_Plan', required: false}
+          {model: Plan, as: 'UserClient_Plan', required: false},
+          {model: DniType, as: 'UserClient_DniType', required: false}
         ]
       });
 
@@ -54,10 +56,11 @@ async function getUserClient(req, res){
       const userClient = await UserClient.findOne({
         where: { dni: DNI },
         attributes: ['id', 'name','lastName',
-        'email', 'dni', 'dniType', 'birthDate', 'address', 'deleted', 'upToDate', 'backupContact',
+        'email', 'dni', 'birthDate', 'address', 'deleted', 'upToDate', 'backupContact',
         'imageUrl', 'activePlan'],
         include: [
-          {model: Plan, as: 'UserClient_Plan', required: false}
+          {model: Plan, as: 'UserClient_Plan', required: false},
+          {model: DniType, as: 'UserClient_DniType', required: false}
         ]});
       if(userClient === null){
         return res.status(200).json([]);
@@ -68,11 +71,13 @@ async function getUserClient(req, res){
     }else{
       const allUserClient = await UserClient.findAll({
         attributes: ['id', 'name','lastName',
-      'email', 'dni', 'dniType', 'birthDate', 'address', 'deleted', 'upToDate', 'backupContact',
+      'email', 'dni', 'birthDate', 'address', 'deleted', 'upToDate', 'backupContact',
       'imageUrl', 'activePlan'],
       include: [
-        {model: Plan, as: 'UserClient_Plan', required: false}
+        {model: Plan, as: 'UserClient_Plan', required: false},
+        {model: DniType, as: 'UserClient_DniType', required: false}
       ]
+      
     });
       return res.status(200).json(allUserClient);
     };
