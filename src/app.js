@@ -55,11 +55,14 @@ server.use('/product', productRouter);
 server.use('/speciality', routerSpeciality);
 server.use('/drug', drugRouter);
 server.use('/lab', laboratoryRouter);;
+server.use('/lab', laboratoryRouter);
 server.use('/presentation-type', routerPresentationType);
-server.use('/appointment', routerAppointment);;
+server.use('/appointment', routerAppointment);
 server.use('/dni-type', routerDniType);
 server.use('/lab', laboratoryRouter)
 server.use('/presentation-type', routerPresentationType)
+
+ 
 server.use('/puntuation', puntuationRouter);
 
 
