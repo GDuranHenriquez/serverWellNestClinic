@@ -18,11 +18,6 @@ module.exports = (sequelize) => {
       type: DataTypes.TEXT,
       allowNull: true
     },
-    laboratory:{
-      type: DataTypes.STRING,
-      allowNull: false
-    },
-    
     dose:{
       type: DataTypes.STRING,
       allowNull: false,
@@ -54,8 +49,6 @@ module.exports = (sequelize) => {
   },
    {
         timestamps: false,
-        createAt: false,
-        updateAt: false,
         tableName: 'Product'
     });
 };

@@ -8,20 +8,19 @@ async function getProductById(req, res) {
             include:[
                 {
                     model: PresentationType,
-                    attributes:['type']
+                    as: 'Product_PresentationType'
                 },
                 {
                     model: Drug,
-                    through: {attributes: []},
-                    attributes:['name']
+                    through: {attributes: []}
                 },
                 {
                     model: Laboratory,
-                    attributes: ['name']
+                    as: 'Product_Laboratory'
                 }
             ]
         });
-        if(!product.name || product.deleted) {
+        if(!product || product.deleted) {
             return res.status(404).json({error: 'Product not found'});
         }
         return res.status(200).json(product);

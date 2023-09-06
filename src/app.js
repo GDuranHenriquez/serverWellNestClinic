@@ -6,19 +6,21 @@ const cors = require('cors');
 
 //swagger
 const swaggerUI = require('swagger-ui-express');
-const swaggerDocument = require('./docsSwagger/openapi.json')
+const swaggerDocument = require('./docsSwagger/openapi.json');
 
 
 //All Routes.
 const clientUserRouter = require('./routes/routerUserClient'); 
 const planRouter = require('./routes/routerPlan');
 const routerDoctor = require("./routes/routerDoctor");
-const routerDetailSale = require('./routes/routerDetailSale')
-const routerSale = require('./routes/routerSale')
+const routerDetailSale = require('./routes/routerDetailSale');
+const routerSale = require('./routes/routerSale');
 const productRouter = require("./routes/routerProduct");
 const routerSpeciality = require("./routes/routerSpeciality");
 const drugRouter = require("./routes/routerDrug");
 const laboratoryRouter = require("./routes/routerLaboratory");
+const routerPresentationType = require('./routes/routerPresentationType');
+const routerDniType = require('./routes/routerDniType');
 
 require('./db.js');
 
@@ -50,7 +52,11 @@ server.use('/sale', routerSale);
 server.use('/product', productRouter);
 server.use('/speciality', routerSpeciality);
 server.use('/drug', drugRouter);
-server.use('/lab', laboratoryRouter)
+server.use('/lab', laboratoryRouter);
+server.use('/presentation-type', routerPresentationType);
+server.use('/dni-type', routerDniType);
+
+
 
 
 // Error catching endware.

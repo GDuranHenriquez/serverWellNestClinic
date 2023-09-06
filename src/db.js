@@ -53,23 +53,26 @@ const {
   Drug,
   Laboratory,
   Sale,
-  DetailSale
+  DetailSale,
+  DniType
 } = sequelize.models;
 
 // N:M
-Doctor.belongsToMany(Location, {through: "doctor_location", timestamps: false, createdAt: false, updatedAt: false})
-Location.belongsToMany(Doctor, {through: "doctor_location", timestamps: false, createdAt: false, updatedAt: false})
-Doctor.belongsToMany(Speciality, {through: "doctor_speciality", timestamps: false, createdAt: false, updatedAt: false})
-Speciality.belongsToMany(Doctor, {through: "doctor_speciality", timestamps: false, createdAt: false, updatedAt: false})
-Product.belongsToMany(Drug, {through: "product_drug", timestamps: false, createdAt: false, updatedAt: false})
-Drug.belongsToMany(Product, {through: "product_drug", timestamps: false, createdAt: false, updatedAt: false})
-Product.belongsToMany(DetailSale, {through: "product_detailSale", timestamps: false, createdAt: false, updatedAt: false})
-DetailSale.belongsToMany(Product, {through: "product_detailSale", timestamps: false, createdAt: false, updatedAt: false})
-
+// al pasarle la propiedad timestamps false ya se define que no se creen las propiedades createdAt y updatedAt
+Doctor.belongsToMany(Location, {through: "doctor_location", timestamps: false})
+Location.belongsToMany(Doctor, {through: "doctor_location", timestamps: false})
+Doctor.belongsToMany(Speciality, {through: "doctor_speciality", timestamps: false})
+Speciality.belongsToMany(Doctor, {through: "doctor_speciality", timestamps: false})
+Product.belongsToMany(Drug, {through: "product_drug", timestamps: false})
+Drug.belongsToMany(Product, {through: "product_drug", timestamps: false})
+Product.belongsToMany(DetailSale, {through: "product_detailSale", timestamps: false})
+DetailSale.belongsToMany(Product, {through: "product_detailSale", timestamps: false})
 
 // 1:1
 //add one key PlanId or id_plan to the table UserClient, according to configuration
 UserClient.belongsTo(Plan, {as:'UserClient_Plan', foreignKey: 'id_plan'});
+
+UserClient.belongsTo(DniType, {as:'UserClient_DniType', foreignKey: 'id_dniType'});
 
 Appointment.belongsTo(UserClient, {as:'Appointment_UserClient'});
 
@@ -81,9 +84,9 @@ Sale.belongsTo(UserClient, {as:'Sale_UserClient'});
 
 DetailSale.belongsTo(Sale, {as:'DetailSale_Sale'});
 
-Product.belongsTo(Laboratory, {as:'Product_Laboratory'});
+Product.belongsTo(Laboratory, {as:'Product_Laboratory', foreignKey: 'laboratory'});
 
-Product.belongsTo(PresentationType, {as:'Product_PresentationType'});
+Product.belongsTo(PresentationType, {as:'Product_PresentationType', foreignKey: 'presentationType'});
 
 module.exports = {
   ...sequelize.models, // para poder importar los modelos así: const { Product, User } = require('./db.js');

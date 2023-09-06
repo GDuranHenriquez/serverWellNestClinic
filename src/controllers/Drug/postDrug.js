@@ -6,8 +6,13 @@ const postDrug = async (req, res) => {
         if(!name) {
             return res.status(403).json({error: "Drug name is missing"});
         }
-        const drug = await Drug.create({name});
-        return res.status(200).json(drug);
+        const [drug, created] = await Drug.findOrCreate({where: {name: name.toLowerCase()}});
+        if(created) {
+            return res.status(200).json(drug);
+        } else {
+            return res.status(403).json({error: `Drug name: ${name}, already exist`})
+        }
+        
     } catch (error) {
         res.status(500).json({error: error.message});
     }

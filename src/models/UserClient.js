@@ -31,12 +31,8 @@ module.exports = (sequelize) => {
             allowNull: false,
             unique: true
         },
-        dniType: {
-            type: DataTypes.STRING,
-            allowNull: false
-        },
         birthDate: {
-            type: DataTypes.DATE,
+            type: DataTypes.DATEONLY,
             allowNull: false
         },
         address: {
@@ -48,7 +44,7 @@ module.exports = (sequelize) => {
             defaultValue: false
         },
         upToDate: {
-            type: DataTypes.DATE,
+            type: DataTypes.DATEONLY,
             allowNull: false
         },
         backupContact: {
@@ -71,8 +67,6 @@ module.exports = (sequelize) => {
     },
    {
         timestamps: false,
-        createAt: false,
-        updateAt: false,
         tableName: 'UserClient'
     });
 };

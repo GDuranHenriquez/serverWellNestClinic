@@ -5,6 +5,11 @@ const { validateUserName } = require('../../utils/validateUserName');
 async function posRegisterAcountUser(req, res){
   try {
     const { email, password, id } = req.body;
+    const userRegister = await UserClient.findByPk(id);
+
+    if(userRegister.emailRegister){
+      return res.status(403).json({error: 'This user is already registered'});
+    };
 
     if( !id || !email || !password){
       return res.status(403).json({error: 'mandatory data is missing'})

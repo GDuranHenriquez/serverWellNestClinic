@@ -1,20 +1,23 @@
 const { DataTypes } = require('sequelize');
 
+
 module.exports = (sequelize) => {
   
-  sequelize.define('detailSale', {
+  sequelize.define('dniType', {
     id:{
       type : DataTypes.INTEGER,
       autoIncrement: true,
       allowNull: false,
       primaryKey: true,      
     },
-    amount: {
-      type: DataTypes.INTEGER,
+    type: {
+      type: DataTypes.STRING,
       allowNull: false,
+      unique:true
     }
+    
 },
 {
      timestamps: false,
-     tableName: 'DetailSale'
+     tableName: 'DniType'
  })}
