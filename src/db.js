@@ -54,7 +54,11 @@ const {
   Laboratory,
   Sale,
   DetailSale,
+<<<<<<< Updated upstream
   DniType
+=======
+  Puntuation
+>>>>>>> Stashed changes
 } = sequelize.models;
 
 // N:M
@@ -85,6 +89,8 @@ DetailSale.belongsTo(Sale, {as:'DetailSale_Sale'});
 Product.belongsTo(Laboratory, {as:'Product_Laboratory', foreignKey: 'laboratory'});
 
 Product.belongsTo(PresentationType, {as:'Product_PresentationType', foreignKey: 'presentationType'});
+
+Puntuation.belongsTo(Product, {as:'Puntuation_Product', foreignKey: "product"});
 
 module.exports = {
   ...sequelize.models, // para poder importar los modelos así: const { Product, User } = require('./db.js');

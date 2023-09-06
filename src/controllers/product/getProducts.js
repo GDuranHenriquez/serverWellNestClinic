@@ -1,4 +1,4 @@
-const { Product } = require("../../db")
+const { Product, Puntuation } = require("../../db")
 
 const getProducts = async (req, res) => {
     try {
