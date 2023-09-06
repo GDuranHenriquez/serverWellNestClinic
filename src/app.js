@@ -20,12 +20,9 @@ const routerSpeciality = require("./routes/routerSpeciality");
 const drugRouter = require("./routes/routerDrug");
 const laboratoryRouter = require("./routes/routerLaboratory");
 const routerPresentationType = require('./routes/routerPresentationType');
-<<<<<<< Updated upstream
 const routerDniType = require('./routes/routerDniType');
 const routerAppointment = require('./routes/routerAppointment')
-=======
 const puntuationRouter = require("./routes/routerPuntuation");
->>>>>>> Stashed changes
 
 require('./db.js');
 
@@ -57,18 +54,13 @@ server.use('/sale', routerSale);
 server.use('/product', productRouter);
 server.use('/speciality', routerSpeciality);
 server.use('/drug', drugRouter);
-<<<<<<< Updated upstream
 server.use('/lab', laboratoryRouter);;
 server.use('/presentation-type', routerPresentationType);
 server.use('/appointment', routerAppointment);;
 server.use('/dni-type', routerDniType);
-
-
-=======
 server.use('/lab', laboratoryRouter)
 server.use('/presentation-type', routerPresentationType)
 server.use('/puntuation', puntuationRouter);
->>>>>>> Stashed changes
 
 
 // Error catching endware.
