@@ -7,7 +7,7 @@
   },
   "servers": [
     {
-      "url": "http://localhost:3002/"
+      "url": "https://serverwellnestclinic.onrender.com/"
     }
   ],
   "tags": [
@@ -26,6 +26,10 @@
     {
       "name": "DNI Type",
       "description": "These terminals manage all the information on the DNI types."
+    },
+    {
+      "name": "Doctor",
+      "description": "These endpoins manage all the Doctors information."
     }
   ],
   "paths": {
@@ -649,13 +653,13 @@
         "tags": [
           "DNI Type"
         ],
-        "summary": "Searches all specialties registered in the DB as well as allowing queries to search for a single item by id and name.",
+        "summary": "search for all DNI types",
         "parameters": [
           {
             "$ref": "#/components/parameters/token"
           },
           {
-            "name": "type",
+            "name": "name",
             "in": "query",
             "description": "name of the Speciality",
             "required": false,
@@ -700,6 +704,149 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/ServerError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/doctor": {
+      "post": {
+        "tags": [
+          "Doctor"
+        ],
+        "summary": "Inserts information of a doctor in the database.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/token"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BodyUserDoctor"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "(ok)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/okBodyUserDoctor"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "(error)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ServerError"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "(error)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/403postDoctor"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/doctor/": {
+      "get": {
+        "tags": [
+          "Doctor"
+        ],
+        "summary": "search for all doctor's records in db",
+        "responses": {
+          "200": {
+            "description": "(ok)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/getDoc"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "(error)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ServerError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/doctor/{doctorId}": {
+      "get": {
+        "tags": [
+          "Doctor"
+        ],
+        "summary": "search for a doctor by his reference id in db.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/token"
+          },
+          {
+            "name": "doctorId",
+            "in": "path",
+            "description": "reference id in the doctor's database",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "(ok)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/getDocID"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "(error)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ServerError"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "(error)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/404getDocID"
                 }
               }
             }
@@ -852,6 +999,99 @@
                 "description": "plan name"
               }
             }
+          }
+        }
+      },
+      "BodyUserDoctor": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "First Name of the Doctor"
+          },
+          "lastName": {
+            "type": "string",
+            "description": "Last Name of the Doctor"
+          },
+          "phone": {
+            "type": "string",
+            "description": "Doctor's contact information."
+          },
+          "email": {
+            "type": "string",
+            "description": "Email Name of the doctor"
+          },
+          "address": {
+            "type": "string",
+            "description": "Doctor's address."
+          },
+          "specialities": {
+            "type": "array",
+            "items": {
+              "type": "integer"
+            },
+            "description": "arrangement with all of the doctor's specialty id's.",
+            "example": [
+              1,
+              2,
+              3,
+              "...",
+              "n"
+            ]
+          }
+        }
+      },
+      "okBodyUserDoctor": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "First Name of the Doctor"
+          },
+          "lastName": {
+            "type": "string",
+            "description": "Last Name of the Doctor"
+          },
+          "phone": {
+            "type": "string",
+            "description": "Doctor's contact information."
+          },
+          "email": {
+            "type": "string",
+            "description": "Email Name of the doctor"
+          },
+          "address": {
+            "type": "string",
+            "description": "Doctor's address."
+          },
+          "specialities": {
+            "type": "array",
+            "items": {
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "description": "reference id in the specialty database."
+                },
+                "name": {
+                  "type": "string",
+                  "description": "name of the specialty"
+                }
+              }
+            },
+            "description": "array of objects with all the doctor's specialties."
+          }
+        }
+      },
+      "403postDoctor": {
+        "type": "object",
+        "properties": {
+          "error": {
+            "type": "string",
+            "description": "request not valid"
+          },
+          "message": {
+            "type": "string",
+            "description": "The required specialities do not exist"
           }
         }
       },
@@ -1168,6 +1408,100 @@
           }
         }
       },
+      "getDoc": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string",
+              "description": "First Name of the Doctor"
+            },
+            "lastName": {
+              "type": "string",
+              "description": "Last Name of the Doctor"
+            },
+            "phone": {
+              "type": "string",
+              "description": "Doctor's contact information."
+            },
+            "email": {
+              "type": "string",
+              "description": "Email Name of the doctor"
+            },
+            "address": {
+              "type": "string",
+              "description": "Doctor's address."
+            },
+            "specialities": {
+              "type": "array",
+              "items": {
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "description": "reference id in the specialty database."
+                  },
+                  "name": {
+                    "type": "string",
+                    "description": "name of the specialty"
+                  }
+                }
+              },
+              "description": "array of objects with all the doctor's specialties."
+            }
+          }
+        }
+      },
+      "getDocID": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "First Name of the Doctor"
+          },
+          "lastName": {
+            "type": "string",
+            "description": "Last Name of the Doctor"
+          },
+          "phone": {
+            "type": "string",
+            "description": "Doctor's contact information."
+          },
+          "email": {
+            "type": "string",
+            "description": "Email Name of the doctor"
+          },
+          "address": {
+            "type": "string",
+            "description": "Doctor's address."
+          },
+          "specialities": {
+            "type": "array",
+            "items": {
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "description": "reference id in the specialty database."
+                },
+                "name": {
+                  "type": "string",
+                  "description": "name of the specialty"
+                }
+              }
+            },
+            "description": "array of objects with all the doctor's specialties."
+          }
+        }
+      },
+      "404getDocID": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "description": "Doctor not found"
+          }
+        }
+      },
       "getPlan": {
         "type": "array",
         "items": {
@@ -1329,7 +1663,7 @@
       "BodyDniType": {
         "type": "object",
         "properties": {
-          "type": {
+          "name": {
             "type": "string",
             "description": "name of the DNI type to be registered"
           }
@@ -1342,7 +1676,7 @@
             "type": "string",
             "description": "id or primary key of reference in the DB of the dni."
           },
-          "type": {
+          "name": {
             "type": "string",
             "description": "name of the DNI"
           }
@@ -1383,7 +1717,7 @@
               "type": "string",
               "description": "id or primary key of reference in the DB of the DNI to search for."
             },
-            "type": {
+            "name": {
               "type": "string",
               "description": "name of the DNI to search"
             }
@@ -1397,7 +1731,7 @@
             "type": "string",
             "description": "id or primary key of reference in the DB of the DNI to search for."
           },
-          "type": {
+          "name": {
             "type": "string",
             "description": "name of the DNI to search"
           }
@@ -1410,7 +1744,7 @@
             "type": "string",
             "description": "id or primary key of reference in the DB of the DNI to search for."
           },
-          "type": {
+          "name": {
             "type": "string",
             "description": "name of the DNI to search"
           }

@@ -25,7 +25,7 @@ try {
     const findedSpecialities = await Speciality.findAll({where: {id: {[Op.in]: specialitiesIds}}})
     
     if(Object.keys(findedSpecialities).length === 0) {
-        return res.status(403).json({error: "request not valid", message: "The required specialities do not exist"})
+        return res.status(403).json({error: "request not valid",  message: "The required specialities do not exist"})
     }
     
     if(specialities.length !== findedSpecialities.length){

@@ -3,7 +3,10 @@ const { Doctor, Speciality, Location } = require("../../db")
 const getDoctorById = async (req, res) => {
     try {
         const { doctorId } = req.params
-        const doctor = await Doctor.findOne({where: {id: doctorId}, include: [{model: Speciality, atributes: ['name']}, {model: Location, atributes: ['name', 'email']}] });
+        const doctor = await Doctor.findOne({where: {id: doctorId}, 
+            include: [
+                {model: Speciality, through: {attributes: []}}
+            ]});
 
         if(doctor) {
             return res.status(200).json(doctor);
