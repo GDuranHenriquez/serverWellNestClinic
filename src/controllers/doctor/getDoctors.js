@@ -1,4 +1,4 @@
-const { Doctor, Speciality } = require("../../db");
+const { Doctor, Speciality, Appointment } = require("../../db");
 
 
 const getDoctors = async (req, res) => {
