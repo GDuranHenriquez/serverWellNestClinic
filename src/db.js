@@ -54,11 +54,8 @@ const {
   Laboratory,
   Sale,
   DetailSale,
-<<<<<<< Updated upstream
-  DniType
-=======
+  DniType,
   Puntuation
->>>>>>> Stashed changes
 } = sequelize.models;
 
 // N:M
