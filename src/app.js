@@ -22,7 +22,7 @@ const laboratoryRouter = require("./routes/routerLaboratory");
 const routerPresentationType = require('./routes/routerPresentationType');
 const routerDniType = require('./routes/routerDniType');
 const routerAppointment = require('./routes/routerAppointment')
-const puntuationRouter = require("./routes/routerPuntuation");
+const routerScore = require("./routes/routerScore");
 
 require('./db.js');
 
@@ -58,10 +58,7 @@ server.use('/presentation-type', routerPresentationType);
 server.use('/appointment', routerAppointment);
 server.use('/dni-type', routerDniType);
 server.use('/lab', laboratoryRouter);
-server.use('/puntuation', puntuationRouter);
-
- 
-server.use('/puntuation', puntuationRouter);
+server.use('/score', routerScore);
 
 
 // Error catching endware.

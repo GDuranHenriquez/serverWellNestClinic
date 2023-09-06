@@ -55,7 +55,7 @@ const {
   Sale,
   DetailSale,
   DniType,
-  Puntuation
+  Score
 } = sequelize.models;
 
 // N:M
@@ -89,7 +89,8 @@ Product.belongsTo(Laboratory, {as:'Product_Laboratory', foreignKey: 'laboratory'
 
 Product.belongsTo(PresentationType, {as:'Product_PresentationType', foreignKey: 'presentationType'});
 
-Puntuation.belongsTo(Product, {as:'Puntuation_Product', foreignKey: "product"});
+
+Product.hasMany(Score, {as: 'Product_Score'});
 
 module.exports = {
   ...sequelize.models, // para poder importar los modelos así: const { Product, User } = require('./db.js');

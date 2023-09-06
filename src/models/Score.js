@@ -1,7 +1,7 @@
 const { DataTypes } = require("sequelize");
 
 module.exports = (sequelize) => {
-    sequelize.define("puntuation", {
+    sequelize.define("score", {
         id: {
             type: DataTypes.UUID,
             allowNull: false,
@@ -19,6 +19,6 @@ module.exports = (sequelize) => {
     },
     {
         timestamps: false,
-        tableName: 'Puntuation'
+        tableName: 'Score'
     });
 };
