@@ -1,5 +1,5 @@
 const nodemailer = require('nodemailer');
-const { UserClient, Appointment, Doctor } = require(`../db`)
+const { UserClient, Doctor } = require(`../db`)
 
 
 // Ruta para el envío del detalle de la cita al correo
@@ -7,7 +7,7 @@ const { UserClient, Appointment, Doctor } = require(`../db`)
 
 const SettingMessages =  async (IduserClient, Date, startTime, DoctorName )=>{
   const User = await UserClient.findByPk(IduserClient)
-  const Doctor = await Doctor.findByPk(DoctorName)
+  const Doctors = await Doctor.findByPk(DoctorName)
   
   
 
@@ -21,7 +21,7 @@ const SettingMessages =  async (IduserClient, Date, startTime, DoctorName )=>{
 
 
 let mensaje = `Hi ${User.name}, thanks for trust in WellNestClinic, 
-your date day is  ${Date}: ${startTime} with the doctor ${Doctor.name}`;
+your date day is  ${Date}: ${startTime} with the doctor ${Doctors.name}`;
 
 let mailOptions = {
   from: 'wellnestclinic.pf@gmail.com',
