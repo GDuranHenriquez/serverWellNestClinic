@@ -41,7 +41,11 @@ transporter.sendMail(mailOptions, function(error, info){
 
 // Ruta para el saludo de bienvenida al nuevo User
 
-const transporter2 = nodemailer.createTransport({
+const SettingMessagesWelcome =  async (IduserClient)=>{
+  
+  const User = await UserClient.findByPk(IduserClient)
+
+  const transporter2 = nodemailer.createTransport({
   service: 'smtp.gmail.com',
   auth: {
     user: 'wellnestclinic.pf@gmail.com',
@@ -49,11 +53,11 @@ const transporter2 = nodemailer.createTransport({
   }
 });
 
-let mensaje2 = `Hi ${UserClient.name}, ¡Welcome to WellNestClinic!`;
+let mensaje2 = `Hi ${User.name}, ¡Welcome to WellNestClinic!`;
 
 const mailOptions2 = {
   from: 'wellnestclinic.pf@gmail.com',
-  to: `${UserClient.emailRegister}`,
+  to: `${User.emailRegister}`,
   subject: 'Welcome to WellNestClinic',
   text: mensaje2
 };
@@ -64,6 +68,7 @@ transporter2.sendMail(mailOptions2, function(error, info){
   } else {
     console.log('Email send: ' + info.response);
   }
-});
+});}
 
-module.exports = {SettingMessages};
+module.exports = {SettingMessages,
+                  SettingMessagesWelcome};
