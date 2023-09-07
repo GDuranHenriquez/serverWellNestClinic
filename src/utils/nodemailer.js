@@ -14,8 +14,8 @@ const transporter = nodemailer.createTransport({
 });
 
 
-let mensaje = `Hola ${UserClient.name}, muchas gracias por confiar en WellNestClinic, 
-tienes una cita para el ${Appointment.date} con el doctor ${Doctor.name}`;
+let mensaje = `Hi ${UserClient.name}, thanks for trust in WellNestClinic, 
+your date day is  ${Appointment.date} with the doctor ${Doctor.name}`;
 
 let mailOptions = {
   from: 'wwellnestclinic.pf@gmail.com',
@@ -28,7 +28,7 @@ transporter.sendMail(mailOptions, function(error, info){
   if (error) {
     console.log(error);
   } else {
-    console.log('Email enviado: ' + info.response);
+    console.log('Email send: ' + info.response);
   }
 });
 
@@ -43,12 +43,12 @@ const transporter2 = nodemailer.createTransport({
   }
 });
 
-let mensaje2 = `Hola ${UserClient.name}, ¡Bienvenido a WellNestClinic!`;
+let mensaje2 = `Hi ${UserClient.name}, ¡Welcome to WellNestClinic!`;
 
 const mailOptions2 = {
   from: 'wellnestclinic.pf@gmail.com',
   to: `${UserClient.emailRegister}`,
-  subject: 'Bienvenido a WellNestClinic',
+  subject: 'Welcome to WellNestClinic',
   text: mensaje2
 };
 
@@ -56,7 +56,7 @@ transporter2.sendMail(mailOptions2, function(error, info){
   if (error) {
     console.log(error);
   } else {
-    console.log('Email enviado: ' + info.response);
+    console.log('Email send: ' + info.response);
   }
 });
 
