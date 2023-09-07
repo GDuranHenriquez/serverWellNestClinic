@@ -5,7 +5,13 @@ const { UserClient, Appointment, Doctor } = require(`../db`)
 // Ruta para el envío del detalle de la cita al correo
 
 
-const transporter = nodemailer.createTransport({
+const SettingMessages =  async (IduserClient, Date, startTime, DoctorName )=>{
+  const User = await UserClient.findByPk(IduserClient)
+  const Doctor = await Doctor.findByPk(DoctorName)
+  
+  
+
+  const transporter = nodemailer.createTransport({
   service: 'smtp.gmail.com',
   auth: {
     user: 'wellnestclinic.pf@gmail.com',
@@ -14,12 +20,12 @@ const transporter = nodemailer.createTransport({
 });
 
 
-let mensaje = `Hi ${UserClient.name}, thanks for trust in WellNestClinic, 
-your date day is  ${Appointment.date} with the doctor ${Doctor.name}`;
+let mensaje = `Hi ${User.name}, thanks for trust in WellNestClinic, 
+your date day is  ${Date}: ${startTime} with the doctor ${Doctor.name}`;
 
 let mailOptions = {
-  from: 'wwellnestclinic.pf@gmail.com',
-  to: `${UserClient.emailRegister}`,
+  from: 'wellnestclinic.pf@gmail.com',
+  to: `${User.emailRegister}`,
   subject: 'WellNestClinic',
   text: mensaje
 };
@@ -30,7 +36,7 @@ transporter.sendMail(mailOptions, function(error, info){
   } else {
     console.log('Email send: ' + info.response);
   }
-});
+});}
 
 
 // Ruta para el saludo de bienvenida al nuevo User
@@ -60,4 +66,4 @@ transporter2.sendMail(mailOptions2, function(error, info){
   }
 });
 
-module.exports = {transporter, transporter2};
+module.exports = {SettingMessages};
