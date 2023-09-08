@@ -17,6 +17,19 @@ const postScore = async (req, res) => {
         
         const productToScore = await Product.findByPk(product)
         await productToScore.addProduct_Score(score)
+
+        for (const product of productToScore) {
+            const ratings = await product.getProduct_Score();
+            if (ratings.length > 0) {
+                const totalRating = ratings.reduce((sum, rating) => sum + rating.stars, 0);
+                const averageRating = totalRating / ratings.length;
+                product.averageRating = averageRating.toFixed(1);
+            } else {
+                // Si no hay puntuaciones, establece el promedio en 0
+                product.averageRating = 0;
+            }
+        }
+
         res.status(200).json({message: "Score posted successfully"});
 
     } catch (error) {

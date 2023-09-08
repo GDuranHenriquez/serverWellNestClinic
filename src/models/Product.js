@@ -10,11 +10,6 @@ module.exports = (sequelize) => {
       allowNull: false,
       primaryKey: true,
     },
-    averageRating: {
-      type: DataTypes.FLOAT,
-      allowNull: true,
-      defaultValue: 0.0,
-    },
     name: {
       type: DataTypes.STRING,
       allowNull: false,

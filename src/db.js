@@ -55,7 +55,8 @@ const {
   Sale,
   DetailSale,
   DniType,
-  Score
+  Score,
+  Average
 } = sequelize.models;
 
 // N:M
@@ -89,6 +90,7 @@ Product.belongsTo(Laboratory, {as:'Product_Laboratory', foreignKey: 'laboratory'
 
 Product.belongsTo(PresentationType, {as:'Product_PresentationType', foreignKey: 'presentationType'});
 
+Average.hasOne(Product, {as: 'Average_Product', foreignKey: 'product'})
 
 Product.hasMany(Score, {as: 'Product_Score'});
 
