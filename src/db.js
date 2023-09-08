@@ -56,7 +56,8 @@ const {
   DetailSale,
   DniType,
   Score,
-  Average
+  Average,
+  StatusAppointment
 } = sequelize.models;
 
 // N:M
@@ -81,6 +82,8 @@ Appointment.belongsTo(UserClient, {as:'Appointment_UserClient', foreignKey: 'use
 Appointment.belongsTo(Doctor, {as:'Appointment_Doctor', foreignKey: 'doctor'});
 
 Appointment.belongsTo(Location, {as:'Appointment_Location'});
+
+Appointment.belongsTo(StatusAppointment, {as:'Status_Appointment'});
 
 Sale.belongsTo(UserClient, {as:'Sale_UserClient'});
 

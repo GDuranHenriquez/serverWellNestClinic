@@ -23,6 +23,12 @@ const routerPresentationType = require('./routes/routerPresentationType');
 const routerDniType = require('./routes/routerDniType');
 const routerAppointment = require('./routes/routerAppointment')
 const routerScore = require("./routes/routerScore");
+const routerAppointmentRouter = require('./routes/routerStatusAppointment')
+
+
+//const routerScore = require("./routes/refreshToken");
+//const routerScore = require("./routes/signout");
+
 
 require('./db.js');
 
@@ -43,6 +49,7 @@ server.use((req, res, next) => {
   next();
 });
 server.use(cors());
+server.use(express.json());
 
 //server.use('/', routes);
 server.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerDocument));
@@ -59,6 +66,11 @@ server.use('/appointment', routerAppointment);
 server.use('/dni-type', routerDniType);
 server.use('/lab', laboratoryRouter);
 server.use('/score', routerScore);
+server.use('/status-appointment', routerAppointmentRouter);
+
+//tokens
+//server.use('/refresh-token',refreshToken)
+//server.use('/signout',signout)
 
 
 // Error catching endware.
