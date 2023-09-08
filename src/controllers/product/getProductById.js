@@ -1,4 +1,4 @@
-const {Product, PresentationType, Drug, Laboratory} = require("../../db");
+const {Product, PresentationType, Drug, Laboratory, Score} = require("../../db");
 
 async function getProductById(req, res) {
     const {productId} = req.params;
@@ -17,6 +17,10 @@ async function getProductById(req, res) {
                 {
                     model: Laboratory,
                     as: 'Product_Laboratory'
+                },
+                {
+                    model: Score,
+                    as: 'Product_Score'
                 }
             ]
         });
