@@ -20,7 +20,7 @@ const postScore = async (req, res) => {
         }
         const score = await Score.create({text, stars, product});
         const scores = await Score.findAll({where: {product}, attributes: [[sequelize.fn("avg", sequelize.col("stars")), "average"]], raw: true})
-        const averageRating = parseFloat(scores[0].average || 0);
+        const averageRating = parseFloat(scores[0].average || 0).toFixed(1);
         const averageToUpdate = await Average.findOne({where: {product}})
         if(averageToUpdate){
             await averageToUpdate.update({averageRating});
