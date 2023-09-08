@@ -24,6 +24,7 @@ const routerDniType = require('./routes/routerDniType');
 const routerAppointment = require('./routes/routerAppointment')
 const routerScore = require("./routes/routerScore");
 const routerAppointmentRouter = require('./routes/routerStatusAppointment')
+const routerCart = require('./routes/routerCart');
 
 
 //const routerScore = require("./routes/refreshToken");
@@ -67,6 +68,7 @@ server.use('/dni-type', routerDniType);
 server.use('/lab', laboratoryRouter);
 server.use('/score', routerScore);
 server.use('/status-appointment', routerAppointmentRouter);
+server.use('/cart', routerCart);
 
 //tokens
 //server.use('/refresh-token',refreshToken)
