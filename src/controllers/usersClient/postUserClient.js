@@ -12,7 +12,7 @@ async function postUserClient(req, res){
 
     
     if(!name || !lastName || !email || !dni || !birthDate || !address || !upToDate || !backupContact || !Number(plan) || !Number(dniType)){
-      return res.status(403).json({error: 'mandatory data is missing o exist one invalid data'})
+      return res.status(403).json({error: 'Mandatory data is missing o exist one invalid data'})
     };
 
     //User -> Plan. belongsTo
@@ -25,7 +25,7 @@ async function postUserClient(req, res){
     const dniTypeClient = await DniType.findByPk(dniType);
     
     if(planClient === null || dniTypeClient === null){
-      return res.status(400).json({error: 'this plan is not registered'});
+      return res.status(400).json({error: 'This plan is not registered'});
     }
     
     const newUserClient = await UserClient.create({

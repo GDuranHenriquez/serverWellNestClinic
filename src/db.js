@@ -54,7 +54,10 @@ const {
   Laboratory,
   Sale,
   DetailSale,
-  DniType
+  DniType,
+  Score,
+  Average,
+  StatusAppointment
 } = sequelize.models;
 
 // N:M
@@ -74,11 +77,13 @@ UserClient.belongsTo(Plan, {as:'UserClient_Plan', foreignKey: 'id_plan'});
 
 UserClient.belongsTo(DniType, {as:'UserClient_DniType', foreignKey: 'id_dniType'});
 
-Appointment.belongsTo(UserClient, {as:'Appointment_UserClient'});
+Appointment.belongsTo(UserClient, {as:'Appointment_UserClient', foreignKey: 'userClient'});
 
-Appointment.belongsTo(Doctor, {as:'Appointment_Doctor'});
+Appointment.belongsTo(Doctor, {as:'Appointment_Doctor', foreignKey: 'doctor'});
 
 Appointment.belongsTo(Location, {as:'Appointment_Location'});
+
+Appointment.belongsTo(StatusAppointment, {as:'Status_Appointment'});
 
 Sale.belongsTo(UserClient, {as:'Sale_UserClient'});
 
@@ -87,6 +92,10 @@ DetailSale.belongsTo(Sale, {as:'DetailSale_Sale'});
 Product.belongsTo(Laboratory, {as:'Product_Laboratory', foreignKey: 'laboratory'});
 
 Product.belongsTo(PresentationType, {as:'Product_PresentationType', foreignKey: 'presentationType'});
+
+Product.hasOne(Average, {as: 'Product_Average', foreignKey: 'product'})
+
+Product.hasMany(Score, {as: 'Product_Score', foreignKey: 'product'});
 
 module.exports = {
   ...sequelize.models, // para poder importar los modelos así: const { Product, User } = require('./db.js');

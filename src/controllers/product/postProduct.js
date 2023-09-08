@@ -1,4 +1,4 @@
-const { Product } = require("../../db.js")
+const { Product, Average } = require("../../db.js")
 const postProduct = async(req, res)=>{
 
 try {
@@ -19,6 +19,8 @@ try {
     await product.setProduct_PresentationType(presentation);
     await product.setProduct_Laboratory(laboratory);
     await product.addDrug(drugs)
+    const average = await Average.create()
+    await product.setProduct_Average(average)
 
     return res.status(200).json(product)
 } catch (error) {
