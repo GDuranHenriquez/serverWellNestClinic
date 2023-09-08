@@ -90,9 +90,9 @@ Product.belongsTo(Laboratory, {as:'Product_Laboratory', foreignKey: 'laboratory'
 
 Product.belongsTo(PresentationType, {as:'Product_PresentationType', foreignKey: 'presentationType'});
 
-Average.hasOne(Product, {as: 'Average_Product', foreignKey: 'product'})
+Product.hasOne(Average, {as: 'Product_Average', foreignKey: 'product'})
 
-Product.hasMany(Score, {as: 'Product_Score'});
+Product.hasMany(Score, {as: 'Product_Score', foreignKey: 'product'});
 
 module.exports = {
   ...sequelize.models, // para poder importar los modelos así: const { Product, User } = require('./db.js');
