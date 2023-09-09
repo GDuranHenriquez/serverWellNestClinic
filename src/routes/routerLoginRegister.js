@@ -3,7 +3,7 @@ const { posRegisterAcountUser } = require('../controllers/usersClient/postRegist
 const { getValidateUsername } = require('../controllers/usersClient/getValidateUserName');
 const { postLoginUserClient } = require('../controllers/usersClient/postLoginUserClient');
 const { getIsMember } = require('../controllers/usersClient/getIsMember');
-const { postUserClient } = require('../controllers/usersClient/getIsMember')
+const { postUserClient } = require('../controllers/usersClient/postUserClient')
 
 const loginRegister = Router();
 loginRegister.post('/', postUserClient);
