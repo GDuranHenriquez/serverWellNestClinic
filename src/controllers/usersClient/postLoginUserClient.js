@@ -1,7 +1,9 @@
-const { UserClient } = require('../../db');
+const { UserClient, Token } = require('../../db');
 const { validateUserName } = require('../../utils/validateUserName');
 const { encrypPass } = require('../../utils/crypPass.js');
 const bcrypt = require('bcrypt');
+const { createAccessToken,  createRefreshToken } = require('../../auth/createTokens');
+const { generateInfo } = require('../../auth/generateTokens');
 
 async function postLoginUserClient(req, res){
   try {
@@ -16,8 +18,18 @@ async function postLoginUserClient(req, res){
     var data = user.dataValues;    
     const match = await bcrypt.compare(password, data.password);
    
-    if(match && data.emailRegister === userName){
-      return res.status(200).json({pass: true, message: 'Correct username and password'})
+    if(match && data.emailRegister === userName){   
+
+      const accessToken = createAccessToken(data);
+      const refreshToken = await createRefreshToken(data);      
+
+      return res.status(200).json({
+        pass: true, 
+        message: 'Correct username and password', 
+        user: generateInfo(data),
+        accessToken,
+        refreshToken
+       })
     }else{
       return res.status(403).json({pass: false, message: "Incorrect password or user"})
     }
