@@ -1,17 +1,29 @@
-const { Cart } = require('../../db');
+const { Cart, Product } = require('../../db');
 
 const postCart = async (req, res) => {
     try {
-        const { userId, productId, amount } = req.query;
-        const [cart, created] = Cart.findOrCreate({where: {userId}});
-        await cart.addCart_Product(productId, amount);
-        if(created) {
-            return res.status(200).json(cart)
-        } else {
-            res.status(200).json(created)
+        const { user, productId, amount } = req.body;
+        if(!user, !productId, !amount){
+            return res.status(403).json({error: "Mandatory data is missing"})
         }
+        const [cart, created] = await Cart.findOrCreate({where: {user}})
+        await cart.addProduct(productId, {through: {amount}});
+        const response = await Cart.findOne({
+            where: { id: cart.id },
+            attributes:['id'],
+            include: [
+                {
+                    model: Product,
+                    attributes: ['name', 'price'],
+                    through: {
+                        attributes: ['amount'],
+                    },
+                },
+            ],
+        });
+        return res.status(200).json(response)
     } catch (error) {
-        res.status(500).json({error: error.message});
+        res.status(500).json({error: error});
     }
 };
 
