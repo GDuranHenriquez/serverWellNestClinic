@@ -7,7 +7,7 @@ const cors = require('cors');
 //swagger
 const swaggerUI = require('swagger-ui-express');
 const swaggerDocument = require('./docsSwagger/openapi.json');
-
+const { authenticate } = require('./auth/athenticate');
 
 //All Routes.
 const clientUserRouter = require('./routes/routerUserClient'); 
@@ -24,11 +24,11 @@ const routerDniType = require('./routes/routerDniType');
 const routerAppointment = require('./routes/routerAppointment')
 const routerScore = require("./routes/routerScore");
 const routerAppointmentRouter = require('./routes/routerStatusAppointment')
+const routerCart = require('./routes/routerCart');
 
-
-//const routerScore = require("./routes/refreshToken");
-//const routerScore = require("./routes/signout");
-
+const tokenRouter = require('./routes/routerToken');
+const loginRegister = require('./routes/routerLoginRegister');
+const routerSingOut = require('./routes/routerSingOut');
 
 require('./db.js');
 
@@ -53,7 +53,8 @@ server.use(express.json());
 
 //server.use('/', routes);
 server.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerDocument));
-server.use('/userClient', clientUserRouter);
+server.use('/login-register', loginRegister)
+server.use('/userClient', authenticate, clientUserRouter);
 server.use('/plan', planRouter);
 server.use('/doctor', routerDoctor);
 server.use('/detail', routerDetailSale);
@@ -67,10 +68,12 @@ server.use('/dni-type', routerDniType);
 server.use('/lab', laboratoryRouter);
 server.use('/score', routerScore);
 server.use('/status-appointment', routerAppointmentRouter);
+server.use('/cart', routerCart);
+
 
 //tokens
-//server.use('/refresh-token',refreshToken)
-//server.use('/signout',signout)
+server.use('/token', tokenRouter)
+server.use('/sing-out', routerSingOut);
 
 
 // Error catching endware.
