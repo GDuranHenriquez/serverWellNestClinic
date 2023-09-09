@@ -24,7 +24,6 @@ const routerDniType = require('./routes/routerDniType');
 const routerAppointment = require('./routes/routerAppointment')
 const routerScore = require("./routes/routerScore");
 const routerAppointmentRouter = require('./routes/routerStatusAppointment')
-const routerCart = require('./routes/routerCart');
 
 const tokenRouter = require('./routes/routerToken');
 const loginRegister = require('./routes/routerLoginRegister');
@@ -53,7 +52,6 @@ server.use(express.json());
 
 //server.use('/', routes);
 server.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerDocument));
-server.use('/login-register', loginRegister)
 server.use('/userClient', authenticate, clientUserRouter);
 server.use('/plan', planRouter);
 server.use('/doctor', routerDoctor);
@@ -68,12 +66,12 @@ server.use('/dni-type', routerDniType);
 server.use('/lab', laboratoryRouter);
 server.use('/score', routerScore);
 server.use('/status-appointment', routerAppointmentRouter);
-server.use('/cart', routerCart);
 
 
 //tokens
-server.use('/token', tokenRouter)
+server.use('/token', tokenRouter);
 server.use('/sing-out', routerSingOut);
+server.use('/login-register', loginRegister);
 
 
 // Error catching endware.
