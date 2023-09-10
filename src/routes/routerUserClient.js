@@ -8,6 +8,7 @@ const { getIsMember } = require('../controllers/usersClient/getIsMember');
 
 const clientUserRouter = Router();
 
+clientUserRouter.post('/', postUserClient);
 clientUserRouter.post('/register', posRegisterAcountUser);
 clientUserRouter.get('/validateUser', getValidateUsername);
 clientUserRouter.post('/login', postLoginUserClient);

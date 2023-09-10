@@ -26,9 +26,8 @@ module.exports = (sequelize) => {
       defaultValue: sequelize.literal('CURRENT_TIMESTAMP'),
     }
     
-  },
+},
   {
     timestamps: true,
     tableName: 'token'
-  });
-};
+ })}

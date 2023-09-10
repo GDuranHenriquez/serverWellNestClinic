@@ -10,7 +10,9 @@ async function createRefreshToken(data){
   try {
     await Token.create({token:refreshToken});
     return refreshToken;
-  } catch (error) {}
-}
+  } catch (error) {
+    return {error: error.message};
+  };
+};
 
 module.exports = { createAccessToken,  createRefreshToken }

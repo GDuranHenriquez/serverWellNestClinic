@@ -23,7 +23,8 @@ const routerPresentationType = require('./routes/routerPresentationType');
 const routerDniType = require('./routes/routerDniType');
 const routerAppointment = require('./routes/routerAppointment')
 const routerScore = require("./routes/routerScore");
-const routerAppointmentRouter = require('./routes/routerStatusAppointment')
+const routerAppointmentRouter = require('./routes/routerStatusAppointment');
+const routerDataUserClient = require('./routes/routerDataUserClient');
 
 const tokenRouter = require('./routes/routerToken');
 const loginRegister = require('./routes/routerLoginRegister');
@@ -52,7 +53,8 @@ server.use(express.json());
 
 //server.use('/', routes);
 server.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerDocument));
-server.use('/userClient', authenticate, clientUserRouter);
+server.use('/data-userClient', authenticate, routerDataUserClient);
+
 server.use('/plan', planRouter);
 server.use('/doctor', routerDoctor);
 server.use('/detail', routerDetailSale);
@@ -66,6 +68,7 @@ server.use('/dni-type', routerDniType);
 server.use('/lab', laboratoryRouter);
 server.use('/score', routerScore);
 server.use('/status-appointment', routerAppointmentRouter);
+server.use('/userClient', clientUserRouter);
 
 
 //tokens
