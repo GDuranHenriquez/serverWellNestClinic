@@ -16,7 +16,7 @@ const postDniType = async (req, res) => {
         }else{
             return res.status(409).json({
                 error: "request not valid",
-                message: `Speciality name: ${type}, already exist`})
+                message: `ID type: ${type}, already exist`})
         }
     } catch (error) {
         return res.status(400).json({error: error.message});

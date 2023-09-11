@@ -71,8 +71,8 @@ Product.belongsToMany(Drug, {through: "product_drug", timestamps: false})
 Drug.belongsToMany(Product, {through: "product_drug", timestamps: false})
 Product.belongsToMany(DetailSale, {through: "product_detailSale", timestamps: false})
 DetailSale.belongsToMany(Product, {through: "product_detailSale", timestamps: false})
-Cart.belongsToMany(Product, {through: 'cart_product'})
-Product.belongsToMany(Cart, {through: 'cart_product'})
+Cart.belongsToMany(Product, {through: 'cart_product', timestamps: false})
+Product.belongsToMany(Cart, {through: 'cart_product', timestamps: false})
 // 1:1
 //add one key PlanId or id_plan to the table UserClient, according to configuration
 UserClient.belongsTo(Plan, {as:'UserClient_Plan', foreignKey: 'id_plan'});

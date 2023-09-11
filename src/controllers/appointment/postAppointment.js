@@ -12,7 +12,7 @@ async function postAppointment(req, res){
     const status = await StatusAppointment.findOne({where: {status: 'open'}});
     const client = await UserClient.findOne({where: {id: userClient}});
     if(status === null){
-      return res.status(403).json({error: 'open status is not registered'})
+      return res.status(403).json({error: 'Open status is not registered'})
     };
     if(client === null){
       return res.status(403).json({error: 'This client is not registered'})
@@ -33,7 +33,7 @@ async function postAppointment(req, res){
         appointment.setStatus_Appointment(status.dataValues.id);
           return res.status(200).json(appointment)
       } else {
-          return res.status(403).json({error: 'On that time the doctor already have a scheduled appointment'})
+          return res.status(403).json({error: 'At that time the doctor already has a appointment scheduled'})
       }
 
     }else{

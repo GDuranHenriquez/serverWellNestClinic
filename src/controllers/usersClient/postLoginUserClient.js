@@ -39,7 +39,7 @@ async function postLoginUserClient(req, res){
     if(user === null){
       return res.status(403).json({error: 'This ID is not registered as a member, please verify it is correct or request a membership'});
     }else if(user.emailRegister === null){
-      return res.status(403).json({error: 'Unregistered member, please create an account, go to create an account to register. '});
+      return res.status(403).json({error: 'Unregistered member, to register first create an account'});
     }
     var data = user.dataValues;    
     const match = await bcrypt.compare(password, data.password);

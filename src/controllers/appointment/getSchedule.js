@@ -14,7 +14,7 @@ async function postSchedule(req, res){
     const client = await UserClient.findOne({where: {id: userClient}});
 
     if(status === null){
-      return res.status(403).json({error: 'open status is not registered'})
+      return res.status(403).json({error: 'Open status is not registered'})
     };
     if(client === null){
       return res.status(403).json({error: 'This client is not registered'})

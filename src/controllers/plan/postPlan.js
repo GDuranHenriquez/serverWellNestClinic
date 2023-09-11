@@ -12,7 +12,7 @@ async function postPlan(req, res){
         return res.status(200).json(findplan);
       } else {
         return res.status(409).json({
-          error: "Duplicación de plan",
+          error: "Plan duplication",
           message: `Plan, ${name} is already registered`});
       }      
     }else{

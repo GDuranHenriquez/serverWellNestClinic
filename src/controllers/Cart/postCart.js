@@ -6,7 +6,7 @@ const postCart = async (req, res) => {
         if(!user, !productId, !amount){
             return res.status(403).json({error: "Mandatory data is missing"})
         }
-        const [cart, created] = await Cart.findOrCreate({where: {user}})
+        const cart = await Cart.findOrCreate({where: {user}})
         await cart.addProduct(productId, {through: {amount}});
         const response = await Cart.findOne({
             where: { id: cart.id },
@@ -23,7 +23,7 @@ const postCart = async (req, res) => {
         });
         return res.status(200).json(response)
     } catch (error) {
-        res.status(500).json({error: error});
+        res.status(500).json({error: error.message});
     }
 };
 

@@ -7,7 +7,7 @@ async function deleteSingOut(req, res){
     if(refreshToken){
       const token = await Token.findOne({ where: { token: refreshToken } });
       if(token === null){
-        return res.status(401).json({ message: 'Incorret token' });
+        return res.status(401).json({ message: 'Incorrect token' });
       };
       await token.destroy();
       return res.status(200).json({ message: 'Token deleted' });

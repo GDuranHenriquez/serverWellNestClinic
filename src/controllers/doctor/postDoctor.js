@@ -16,7 +16,7 @@ try {
         }else{
             return res.status(403).json({
                 error: "request not valid",
-                message: `value of specialities:${element} sent is invalid, must be an integer id of a registered specialty`
+                message: `The speciality id: ${element} is invalid, the id must be an integer`
             })
         };
     });
@@ -24,18 +24,16 @@ try {
     const findedSpecialities = await Speciality.findAll({where: {id: {[Op.in]: specialitiesIds}}})
     
     if(Object.keys(findedSpecialities).length === 0) {
-        return res.status(403).json({error: "request not valid",  message: "The required specialities do not exist"})
+        return res.status(403).json({error: "request not valid",  message: "The required specialities don't exist"})
     }
     
     if(specialities.length !== findedSpecialities.length){
         return res.status(403).json({
             error: "request not valid",
-            message: `one of the submitted specialties is not a registered specialty in the system. The only ones registered correspond to the ones attached in the key data, please check and take the corresponding actions for the registration.`,
+            message: `At least one of the provided specialties is not registered. The registered ones are attached below, please check and proceed with the corresponding actions to register them`,
             data: findedSpecialities
         })
     }
-
-    
     
     const [doctor, created] = await Doctor.findOrCreate({where:{email}, defaults: {name, lastName,phone, address }});
     if(created){
@@ -51,7 +49,7 @@ try {
         }
         return res.status(200).json(response);
     }
-    return res.status(403).json({error: `Doctor's Email: ${email}, already exist in data base`})
+    return res.status(403).json({error: `Doctor's Email: ${email}, is already registered`})
     
 } catch (error) {
     return res.status(500).send({error: error.message});

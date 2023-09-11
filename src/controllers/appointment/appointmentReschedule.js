@@ -19,7 +19,7 @@ async function appointmentReschedule(req, res){
      } });
     
      if(status === null){
-      return res.status(403).json({error: 'open status is not registered'})
+      return res.status(403).json({error: 'Open status is not registered'})
      };
     
     if(!getAppointmentDoctor.length){
@@ -39,7 +39,7 @@ async function appointmentReschedule(req, res){
             ]});
           return res.status(200).json(appointment) 
         }else{
-          return res.status(403).json({error: 'could not reschedule appointment'})
+          return res.status(403).json({error: "Appointment could not be rescheduled"})
         }
       }else if(getAppointmentUser.length > 1){
         const busySchedulesByUser = createArraySchedule(getAppointmentUser);
@@ -60,7 +60,7 @@ async function appointmentReschedule(req, res){
             ]});
             return res.status(200).json(appointment) 
           }else{
-            return res.status(403).json({error: 'could not reschedule appointment'})
+            return res.status(403).json({error: 'Appointment could not be rescheduled'})
           }
         }else{
           return res.status(403).json(createReSchedules[1]);
@@ -87,7 +87,7 @@ async function appointmentReschedule(req, res){
             ]});
             return res.status(200).json(appointment) 
           }else{
-            return res.status(403).json({error: 'could not reschedule appointment'})
+            return res.status(403).json({error: 'Appointment could not be rescheduled'})
           }
         }else{
           return res.status(403).json(isAvailability[1]);
@@ -115,7 +115,7 @@ async function appointmentReschedule(req, res){
               ]});
               return res.status(200).json(appointment) 
             }else{
-              return res.status(403).json({error: 'could not reschedule appointment'})
+              return res.status(403).json({error: 'Appointment could not be rescheduled'})
             }
           }else{
             return res.status(403).json(isAvailability[1]);
