@@ -13,6 +13,8 @@ const SettingMessages =  async (IduserClient, Date, startTime, DoctorName )=>{
 
   const transporter = nodemailer.createTransport({
   service: 'smtp.gmail.com',
+  port: 465,
+  secure: true,
   auth: {
     user: 'wellnestclinic.pf@gmail.com',
     pass: 'enodkstururrxpwd'
@@ -47,6 +49,8 @@ const SettingMessagesWelcome =  async (IduserClient)=>{
 
   const transporter2 = nodemailer.createTransport({
   service: 'smtp.gmail.com',
+  port: 465,
+  secure: true,
   auth: {
     user: 'wellnestclinic.pf@gmail.com',
     pass: 'enodkstururrxpwd'
