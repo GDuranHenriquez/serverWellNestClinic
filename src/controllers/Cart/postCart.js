@@ -7,9 +7,9 @@ const postCart = async (req, res) => {
             return res.status(403).json({error: "Mandatory data is missing"})
         }
         const cart = await Cart.findOrCreate({where: {user}})
-        await cart.addProduct(productId, {through: {amount}});
+        await cart[0].addProduct(productId, {through: {amount}});
         const response = await Cart.findOne({
-            where: { id: cart.id },
+            where: { id: cart[0].id },
             attributes:['id'],
             include: [
                 {
