@@ -1,14 +1,11 @@
 const nodemailer = require('nodemailer');
 const { UserClient, Doctor } = require(`../db`)
-
-
 // Ruta para el envío del detalle de la cita al correo
 
 
 const SettingMessages =  async (IduserClient, Date, startTime, DoctorName )=>{
   const User = await UserClient.findByPk(IduserClient)
   const Doctors = await Doctor.findByPk(DoctorName)
-  
   
 
   const transporter = nodemailer.createTransport({
@@ -45,7 +42,16 @@ transporter.sendMail(mailOptions, function(error, info){
 
 const SettingMessagesWelcome =  async (IduserClient)=>{
   
-  const User = await UserClient.findByPk(IduserClient)
+  const User = await UserClient.findByPk(IduserClient);
+  
+  let mensaje2 = `Hi ${User.name}, ¡Welcome to WellNestClinic!`;
+
+  const mailOptions2 = {
+    from: 'wellnestclinic.pf@gmail.com',
+    to: `${User.emailRegister}`,
+    subject: 'Welcome to WellNestClinic',
+    text: mensaje2
+  };
 
   const transporter2 = nodemailer.createTransport({
   service: 'smtp.gmail.com',
@@ -54,25 +60,16 @@ const SettingMessagesWelcome =  async (IduserClient)=>{
   auth: {
     user: 'wellnestclinic.pf@gmail.com',
     pass: 'enodkstururrxpwd'
-  }
-});
+  }});
 
-let mensaje2 = `Hi ${User.name}, ¡Welcome to WellNestClinic!`;
+  transporter2.sendMail(mailOptions2, function(error, info){
+    if (error) {
+      console.log(error);
+    } else {
+      console.log('Email send: ' + info.response);
+    }
+  });
 
-const mailOptions2 = {
-  from: 'wellnestclinic.pf@gmail.com',
-  to: `${User.emailRegister}`,
-  subject: 'Welcome to WellNestClinic',
-  text: mensaje2
 };
 
-transporter2.sendMail(mailOptions2, function(error, info){
-  if (error) {
-    console.log(error);
-  } else {
-    console.log('Email send: ' + info.response);
-  }
-});}
-
-module.exports = {SettingMessages,
-                  SettingMessagesWelcome};
+module.exports = {SettingMessages, SettingMessagesWelcome};
