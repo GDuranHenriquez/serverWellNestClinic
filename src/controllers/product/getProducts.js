@@ -2,6 +2,7 @@ const { Product, Average, Laboratory, PresentationType, Drug } = require("../../
 
 const getProducts = async (req, res) => {
     try {
+<<<<<<< Updated upstream
         const products = await Product.findAll({
             where: {deleted: false},
             include: [
@@ -29,6 +30,19 @@ const getProducts = async (req, res) => {
                 },
             ]
         });
+=======
+
+        const {sort, order} = req.query
+
+        let defaultOrder =  order ? order : 'ASC'
+        let defaultSort = sort ? sort : 'name'
+
+        let search = sort === 'rating' ? [[{model: Average, as: 'Product_Average'}, 'averageRating', defaultOrder]] : [[defaultSort, defaultOrder]]
+
+        const products = await Product.findAll({where: {deleted: false}, include: [{model: Average, as: 'Product_Average'}],
+        order: search,
+    });
+>>>>>>> Stashed changes
 
         return res.status(200).json(products);
 
