@@ -1,4 +1,4 @@
-const {Product, PresentationType, Drug, Laboratory} = require("../../db");
+const {Product, PresentationType, Drug, Laboratory, Average} = require("../../db");
 const {Op} = require('sequelize')
 
 async function getProductByName(req, res) {
@@ -14,15 +14,23 @@ async function getProductByName(req, res) {
             include:[
                 {
                     model: PresentationType,
-                    as: 'Product_PresentationType'
+                    as: 'Product_PresentationType',
+                    attributes: ['type']
                 },
                 {
                     model: Drug,
+                    attributes: ['name'],
                     through: {attributes: []},
                 },
                 {
                     model: Laboratory,
-                    as: 'Product_Laboratory'
+                    as: 'Product_Laboratory',
+                    attributes: ['name']
+                },
+                {
+                    model: Average,
+                    as: 'Product_Average',
+                    attributes: ['averageRating']
                 }
             ]
         });

@@ -1,8 +1,9 @@
-const { Product, Average } = require("../../db.js")
+const { Product, Laboratory, PresentationType, Drug, Average } = require("../../db.js")
 const postProduct = async(req, res)=>{
 
 try {
     const { name, description, laboratory, presentation, drugs, amount, dose,  imageUrl, stock, price, needPrescription } = req.body;
+    console.log(name, description, laboratory, presentation, drugs, amount, dose,  imageUrl, stock, price, needPrescription)
     if( !name || !description || !laboratory || !presentation || !amount || !dose ||  !imageUrl || !stock || !price || !drugs.length){
       return  res.status(400).json({error: "Mandatory data is missing"})
     }
@@ -21,8 +22,34 @@ try {
     await product.addDrug(drugs)
     const average = await Average.create()
     await product.setProduct_Average(average)
-
-    return res.status(200).json(product)
+    const response = await Product.findOne({
+        where: {id: product.id},
+        include: [
+            {
+                model: Laboratory,
+                as: "Product_Laboratory",
+                attributes: ['name']
+            },
+            {
+                model: PresentationType,
+                as: "Product_PresentationType",
+                attributes: ['type']
+            },
+            {
+                model: Drug,
+                attributes: ['name'],
+                through: {
+                    attributes: []
+                }
+            },
+            {
+                model: Average,
+                as: 'Product_Average',
+                attributes: ['averageRating']
+            }
+        ]
+    })
+    return res.status(200).json(response)
 } catch (error) {
     res.status(500).json({error:error.message})
 }}

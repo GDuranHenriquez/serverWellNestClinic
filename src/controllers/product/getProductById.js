@@ -1,4 +1,4 @@
-const {Product, PresentationType, Drug, Laboratory, Score} = require("../../db");
+const {Product, PresentationType, Drug, Laboratory, Score, Average} = require("../../db");
 
 async function getProductById(req, res) {
     const {productId} = req.params;
@@ -8,19 +8,27 @@ async function getProductById(req, res) {
             include:[
                 {
                     model: PresentationType,
-                    as: 'Product_PresentationType'
+                    as: 'Product_PresentationType',
+                    attributes: ['type']
                 },
                 {
                     model: Drug,
-                    through: {attributes: []}
+                    through: {attributes: []},
+                    attributes: ["name"]
                 },
                 {
                     model: Laboratory,
-                    as: 'Product_Laboratory'
+                    as: 'Product_Laboratory',
+                    attributes: ["name"]
                 },
                 {
                     model: Score,
                     as: 'Product_Score'
+                },
+                {
+                    model: Average,
+                    as: 'Product_Average',
+                    attributes: ['averageRating']
                 }
             ]
         });
