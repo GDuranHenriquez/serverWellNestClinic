@@ -1,4 +1,4 @@
-const {Appointment, Doctor, StatusAppointment} = require('../../db');
+const {Appointment, Doctor, StatusAppointment, Speciality} = require('../../db');
 
 const getAppointmentsByUser = async (req, res) => {
     try {
@@ -9,8 +9,18 @@ const getAppointmentsByUser = async (req, res) => {
                 where: {userClient: userId, StatusAppointmentId: statusId},
                 attributes: ['id', 'date', 'startTime'],
                 include: [
-                    {model: Doctor, as: "Appointment_Doctor"},
-                    {model: StatusAppointment, as: 'Status_Appointment'}]      
+                    {
+                        model: Doctor,
+                        as: "Appointment_Doctor",
+                        attributes: ['id', 'name', 'lastName'],
+                        include: [
+                            {
+                                model: Speciality,
+                                attributes: ['name'],
+                            }
+                        ]
+                    },
+                    {model: StatusAppointment, as: 'Status_Appointment'}]
             });
             if(!appointments.length) {
                 return res.status(200).json({error: "You don't have any appointment scheduled yet"})
@@ -22,7 +32,17 @@ const getAppointmentsByUser = async (req, res) => {
                 where: {userClient: userId},
                 attributes: ['id', 'date', 'startTime'],
                 include: [
-                    {model: Doctor, as: "Appointment_Doctor"},
+                    {
+                        model: Doctor,
+                        as: "Appointment_Doctor",
+                        attributes: ['id', 'name', 'lastName'],
+                        include: [
+                            {
+                                model: Speciality,
+                                attributes: ['name'],
+                            }
+                        ]
+                    },
                     {model: StatusAppointment, as: 'Status_Appointment'}]      
             });
             if(!appointments.length) {
