@@ -23,7 +23,7 @@ module.exports = (sequelize) => {
       allowNull: false,
     },
     amount:{
-        type: DataTypes.INTEGER,
+        type: DataTypes.STRING,
         allowNull: false,
       },
     imageUrl: {
