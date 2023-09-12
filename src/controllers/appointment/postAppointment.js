@@ -4,9 +4,9 @@ const { splitStrinToIntTime, createArraySchedule, splitIntToStrinTime, validateD
 
 async function postAppointment(req, res){
   try {
-    const {doctor, userClient, date, startTime} = req.body;
+    const {doctor, userClient, date, startTime, speciality} = req.body;
 
-    if(!doctor, !userClient, !date, !startTime) {
+    if(!doctor, !userClient, !date, !startTime, !speciality) {
       return res.status(401).json({error: 'Mandatory data is missing'});
     };
     const status = await StatusAppointment.findOne({where: {status: 'open'}});
@@ -26,12 +26,12 @@ async function postAppointment(req, res){
      
     
     if(!getAppointmentDoctor.length){
-      const [appointment, created] = await Appointment.findOrCreate({where: {date, startTime, doctor}});
+      const [appointment, created] = await Appointment.findOrCreate({where: {date, startTime, doctor, speciality}});
 
       if(created) {
         appointment.setAppointment_UserClient(userClient);
         appointment.setStatus_Appointment(status.dataValues.id);
-          return res.status(200).json(appointment)
+        return res.status(200).json(appointment)
       } else {
           return res.status(403).json({error: 'At that time the doctor already has a appointment scheduled'})
       }
@@ -41,7 +41,7 @@ async function postAppointment(req, res){
       const busySchedules = createArraySchedule(getAppointmentDoctor);
       const isAvailability = validateDisponivilidad(busySchedules, startTime);
       if(isAvailability[0]){
-        const createAppointment = await Appointment.create({date:date, startTime: startTime, doctor: doctor});
+        const createAppointment = await Appointment.create({date:date, startTime: startTime, doctor: doctor, speciality});
         createAppointment.setAppointment_UserClient(userClient);
         createAppointment.setStatus_Appointment(status.dataValues.id);
         return res.status(200).json(createAppointment);

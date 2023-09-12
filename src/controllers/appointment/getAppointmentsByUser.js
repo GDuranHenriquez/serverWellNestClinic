@@ -12,15 +12,15 @@ const getAppointmentsByUser = async (req, res) => {
                     {
                         model: Doctor,
                         as: "Appointment_Doctor",
-                        attributes: ['id', 'name', 'lastName'],
-                        include: [
-                            {
-                                model: Speciality,
-                                attributes: ['name'],
-                            }
-                        ]
+                        attributes: ['id', 'name', 'lastName']
                     },
-                    {model: StatusAppointment, as: 'Status_Appointment'}]
+                    {model: StatusAppointment, as: 'Status_Appointment'},
+                    {
+                        model: Speciality,
+                        as: "Appointment_Speciality",
+                        attributes: ['name']
+                    }
+                ]
             });
             if(!appointments.length) {
                 return res.status(200).json({error: "You don't have any appointment scheduled yet"})
@@ -35,15 +35,15 @@ const getAppointmentsByUser = async (req, res) => {
                     {
                         model: Doctor,
                         as: "Appointment_Doctor",
-                        attributes: ['id', 'name', 'lastName'],
-                        include: [
-                            {
-                                model: Speciality,
-                                attributes: ['name'],
-                            }
-                        ]
+                        attributes: ['id', 'name', 'lastName']
                     },
-                    {model: StatusAppointment, as: 'Status_Appointment'}]      
+                    {model: StatusAppointment, as: 'Status_Appointment'},
+                    {
+                        model: Speciality,
+                        as: "Appointment_Speciality",
+                        attributes: ['name']
+                    }
+                ]      
             });
             if(!appointments.length) {
                 return res.status(200).json({error: "You don't have any appointment scheduled yet"})

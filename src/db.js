@@ -83,7 +83,7 @@ Appointment.belongsTo(UserClient, {as:'Appointment_UserClient', foreignKey: 'use
 
 Appointment.belongsTo(Doctor, {as:'Appointment_Doctor', foreignKey: 'doctor'});
 
-Appointment.belongsTo(Location, {as:'Appointment_Location'});
+Appointment.belongsTo(Speciality, {as:'Appointment_Speciality', foreignKey: 'speciality'});
 
 Appointment.belongsTo(StatusAppointment, {as:'Status_Appointment'});
 
