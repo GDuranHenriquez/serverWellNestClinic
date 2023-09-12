@@ -26,7 +26,7 @@ const routerScore = require("./routes/routerScore");
 const routerAppointmentRouter = require('./routes/routerStatusAppointment');
 const routerDataUserClient = require('./routes/routerDataUserClient');
 const routerCart = require('./routes/routerCart')
-
+const routerAdminUser  = require('./routes/routerUserAdmin');
 const tokenRouter = require('./routes/routerToken');
 const loginRegister = require('./routes/routerLoginRegister');
 const routerSingOut = require('./routes/routerSingOut');
@@ -70,8 +70,8 @@ server.use('/lab', laboratoryRouter);
 server.use('/score', routerScore);
 server.use('/status-appointment', routerAppointmentRouter);
 server.use('/userClient', clientUserRouter);
-server.use('/cart', routerCart)
-
+server.use('/cart', routerCart);
+server.use('/userAdmin', routerAdminUser);
 
 //tokens
 server.use('/token', tokenRouter);
