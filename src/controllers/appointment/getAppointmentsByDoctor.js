@@ -6,7 +6,7 @@ const getAppointmentsByUser = async (req, res) => {
         if(statusId){
             const appointments = await Appointment.findAll({
                 where: {doctor: doctorId, StatusAppointmentId: statusId},
-                attributes: ['id', 'date', 'startTime', 'endTime'],
+                attributes: ['id', 'date', 'startTime'],
                 include: [
                     {model: Doctor, as: "Appointment_Doctor"},
                     {model: StatusAppointment, as: 'Status_Appointment'}]
