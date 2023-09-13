@@ -8,7 +8,7 @@ const getProducts = async (req, res) => {
         let defaultOrder =  order ? order : 'ASC'
         let defaultSort = sort ? sort : 'name'
 
-        let search = sort === 'rating' ? [[{model: Average, as: 'Product_Average'}, 'averageRating', defaultOrder]] : [[defaultSort, defaultOrder]]
+        let orderConfig = sort === 'rating' ? [[{model: Average, as: 'Product_Average'}, 'averageRating', defaultOrder]] : [[defaultSort, defaultOrder]]
 
         const products = await Product.findAll({
             where: {deleted: false},
@@ -36,7 +36,7 @@ const getProducts = async (req, res) => {
                     }
                 },
             ],
-            order: search
+            order: orderConfig
         });
 
         return res.status(200).json(products);
