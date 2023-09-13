@@ -4,7 +4,19 @@ const {Op} = require('sequelize')
 async function getProductByName(req, res) {
     try {
         const {productName} = req.params
-        const {sort, order} = req.query
+        const {sort, order, presentation, priceRange} = req.query
+        const filters = {deleted: false}
+        if(presentation){
+            filters.presentationType = presentation
+        }
+        if(priceRange){
+            filters.price = {
+                [Op.between] : JSON.parse(priceRange)
+            }
+        }
+        filters.name = {
+            [Op.iLike]: `%${productName}%`,
+        }
         let defaultOrder =  order ? order : 'ASC'
         let defaultSort = sort ? sort : 'name'
 
@@ -13,12 +25,7 @@ async function getProductByName(req, res) {
             [[defaultSort, defaultOrder]]
         
             const product = await Product.findAll({
-            where: {
-                deleted: false,
-                name: {
-                    [Op.iLike]: `%${productName}%`,
-                },
-            },
+            where: filters,
             include:[
                 {
                     model: PresentationType,

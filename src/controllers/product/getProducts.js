@@ -1,9 +1,19 @@
 const { Product, Average, Laboratory, PresentationType, Drug } = require("../../db")
+const {Op} = require('sequelize')
 
 const getProducts = async (req, res) => {
     try {
 
-        const {sort, order} = req.query
+        const {sort, order, presentation, priceRange} = req.query
+        const filters = {deleted: false}
+        if(presentation){
+            filters.presentationType = presentation
+        }
+        if(priceRange){
+            filters.price = {
+                [Op.between] : JSON.parse(priceRange)
+            }
+        }
 
         let defaultOrder =  order ? order : 'ASC'
         let defaultSort = sort ? sort : 'name'
@@ -11,7 +21,7 @@ const getProducts = async (req, res) => {
         let orderConfig = sort === 'rating' ? [[{model: Average, as: 'Product_Average'}, 'averageRating', defaultOrder]] : [[defaultSort, defaultOrder]]
 
         const products = await Product.findAll({
-            where: {deleted: false},
+            where: filters,
             include: [
                 {
                     model: Average,
