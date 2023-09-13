@@ -30,6 +30,7 @@ const routerAdminUser  = require('./routes/routerUserAdmin');
 const tokenRouter = require('./routes/routerToken');
 const loginRegister = require('./routes/routerLoginRegister');
 const routerSingOut = require('./routes/routerSingOut');
+const Stripe = require('./routes/routerStripe')
 
 require('./db.js');
 
@@ -72,6 +73,7 @@ server.use('/status-appointment', routerAppointmentRouter);
 server.use('/userClient', clientUserRouter);
 server.use('/cart', routerCart);
 server.use('/userAdmin', routerAdminUser);
+server.use('/paymethod', Stripe)
 
 //tokens
 server.use('/token', tokenRouter);
