@@ -12,10 +12,10 @@ async function appointmentReschedule(req, res){
 
     const status = await StatusAppointment.findOne({where: {status: 'open'}});
     const getAppointmentDoctor = await Appointment.findAll({where: { 
-      doctor: doctor
+      doctor: doctor, date: date
      } });
     const getAppointmentUser = await Appointment.findAll({where: { 
-      userClient: userClient
+      userClient: userClient, date: date
      } });
     
      if(status === null){

@@ -57,7 +57,17 @@ function validateDisponivilidad(arr, timeStart){
   };
 };
 
+
+function varifyStartTimeInSchedule(availableArr, startTime){
+  const time = splitStrinToIntTime(startTime);
+  if(availableArr.includes(time)){
+    return true;
+  }
+  return false;  
+}
+
 function validateDisponivilidadUser(occupiedByUser, timeStart){
+
   if(occupiedByUser.includes(timeStart)){
     return [false, {error: 'no availability' , message: 'Schedule not available'}];
   }else{
@@ -80,4 +90,18 @@ function validateAvailabilityHours(arr){
   return { scheduleString: availableString, scheduleInt: available }
 };
 
-module.exports = { splitStrinToIntTime , createArraySchedule, splitIntToStrinTime, validateDisponivilidad, validateDisponivilidadUser, validateAvailabilityHours, createArrayScheduleString };
+function validateDoctorClientSchedule(arrDoctor, arrClient ){
+  const Doctor = arrDoctor.scheduleInt;
+  const Client = arrClient.scheduleInt;
+  const Disponibilidad = []
+  const availableString = [];
+  Client.forEach((hr) => {
+    if(Doctor.includes(hr)){
+      Disponibilidad.push(hr);
+      availableString.push(splitIntToStrinTime(hr));
+    }
+  })
+  return { scheduleString: availableString, scheduleInt: Disponibilidad }
+}
+
+module.exports = { splitStrinToIntTime , createArraySchedule, splitIntToStrinTime, validateDisponivilidad, validateDisponivilidadUser, validateAvailabilityHours, createArrayScheduleString, validateDoctorClientSchedule, varifyStartTimeInSchedule };
