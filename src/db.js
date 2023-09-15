@@ -69,8 +69,6 @@ Doctor.belongsToMany(Speciality, {through: "doctor_speciality", timestamps: fals
 Speciality.belongsToMany(Doctor, {through: "doctor_speciality", timestamps: false})
 Product.belongsToMany(Drug, {through: "product_drug", timestamps: false})
 Drug.belongsToMany(Product, {through: "product_drug", timestamps: false})
-Product.belongsToMany(DetailSale, {through: "product_detailSale", timestamps: false})
-DetailSale.belongsToMany(Product, {through: "product_detailSale", timestamps: false})
 Cart.belongsToMany(Product, {through: 'cart_product', timestamps: false})
 Product.belongsToMany(Cart, {through: 'cart_product', timestamps: false})
 // 1:1
@@ -87,9 +85,9 @@ Appointment.belongsTo(Speciality, {as:'Appointment_Speciality', foreignKey: 'spe
 
 Appointment.belongsTo(StatusAppointment, {as:'Status_Appointment'});
 
-Sale.belongsTo(UserClient, {as:'Sale_UserClient'});
+Sale.belongsTo(UserClient, {as:'Sale_UserClient', foreignKey: 'user'});
 
-DetailSale.belongsTo(Sale, {as:'DetailSale_Sale'});
+DetailSale.belongsTo(Product, {as: 'DetailSale_Product', foreignKey: 'product'})
 
 Product.belongsTo(Laboratory, {as:'Product_Laboratory', foreignKey: 'laboratory'});
 
@@ -100,6 +98,8 @@ UserClient.hasOne(Cart, {as: 'UserClient_Cart', foreignKey: 'user'});
 Product.hasOne(Average, {as: 'Product_Average', foreignKey: 'product'})
 
 Product.hasMany(Score, {as: 'Product_Score', foreignKey: 'product'});
+
+Sale.hasMany(DetailSale, {as:'Sale_DetailSale', foreignKey: 'sale'});
 
 module.exports = {
   ...sequelize.models, // para poder importar los modelos así: const { Product, User } = require('./db.js');
