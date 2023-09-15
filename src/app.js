@@ -13,7 +13,6 @@ const { authenticate } = require('./auth/athenticate');
 const clientUserRouter = require('./routes/routerUserClient'); 
 const planRouter = require('./routes/routerPlan');
 const routerDoctor = require("./routes/routerDoctor");
-const routerDetailSale = require('./routes/routerDetailSale');
 const routerSale = require('./routes/routerSale');
 const productRouter = require("./routes/routerProduct");
 const routerSpeciality = require("./routes/routerSpeciality");
@@ -58,7 +57,6 @@ server.use('/data-userClient', authenticate, routerDataUserClient);
 
 server.use('/plan', planRouter);
 server.use('/doctor', routerDoctor);
-server.use('/detail', routerDetailSale);
 server.use('/sale', routerSale);
 server.use('/product', productRouter);
 server.use('/speciality', routerSpeciality);
