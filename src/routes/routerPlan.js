@@ -3,7 +3,7 @@ const { postPlan } = require('../controllers/plan/postPlan');
 const { getPlan } = require('../controllers/plan/getPlan')
 
 const planRouter = Router();
-planRouter.post('/:name', postPlan);
+planRouter.post('/', postPlan);
 planRouter.get('/', getPlan);
 
 module.exports = planRouter;
