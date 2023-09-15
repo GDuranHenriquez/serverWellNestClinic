@@ -28,18 +28,20 @@ const postSale = async (req, res) => {
                 return res.status(403).json({error: `The requested product: ${product.name} ${product.dose} is not available. Please discard or select another product` })
             }
             promises.push(Product.update({stock: (product.stock - product.cart_product.amount)}, {where: {id: product.id}}))
-            priceTot += product.price
+            priceTot += (product.price * product.cart_product.amount)
         }
         await Promise.all(promises)
         if(discount){
             saleData.discount = discount
         }
         saleData.price = discount ? (priceTot * (1 - discount)) : priceTot
-        // const payment = await stripe.paymentIntents.create({
-            //     priceTot,
-            //     payment_method: stripeId,
-            //     confirm: true
-            // })
+        const payment = await stripe.paymentIntents.create({
+            amount: priceTot,
+            currency: "usd",
+            automatic_payment_methods: {
+                enabled: true,
+            },
+        })
 
         const sale = await Sale.create(saleData)
         const detailData = cart.products.map((product) => ({

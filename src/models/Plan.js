@@ -16,13 +16,13 @@ module.exports = (sequelize) => {
     //   validate: {
     //     isIn: [['gold','bronze','silver']]
     //   }
-      name: {
-        type: DataTypes.STRING,
-        allowNull: false,
-        unique:true
+    name: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      unique:true
     },
     discount: {
-      type: DataTypes.DECIMAL,
+      type: DataTypes.FLOAT,
       allowNull: false
     }
     

@@ -24,8 +24,11 @@ async function postUserClient(req, res){
     const planClient = await Plan.findByPk(plan);
     const dniTypeClient = await DniType.findByPk(dniType);
     
-    if(planClient === null || dniTypeClient === null){
+    if(planClient === null){
       return res.status(400).json({error: 'This plan is not registered'});
+    }
+    if(dniTypeClient === null) {
+      return res.status(400).json({error: 'The ID Type is not registered'});
     }
     
     const newUserClient = await UserClient.create({

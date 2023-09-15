@@ -1,11 +1,17 @@
 const { Product, Average, Laboratory, PresentationType, Drug } = require("../../db")
 const {Op} = require('sequelize')
+const { getTokenFromHeader } = require('../token/getTokenFromHeader')
+const {verifyAdmin} = require('../../auth/verifyAdmin')
 
 const getProducts = async (req, res) => {
     try {
-
+        const token = getTokenFromHeader(req.headers)
+        const isAdmin = verifyAdmin(token)
         const {sort, order, presentation, priceRange} = req.query
-        const filters = {deleted: false}
+        const filters = {}
+        if(!isAdmin){
+            filters.delete = false
+        }
         if(presentation){
             filters.presentationType = presentation
         }
