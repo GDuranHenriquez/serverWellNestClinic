@@ -22,9 +22,15 @@ const postSale = async (req, res) => {
         const date = new Date()
         const saleData = {stripeId, date, user}
         let priceTot = 0
+        let promises = []
         for(const product of cart.products){
+            if(product.stock < product.cart_product.amount){
+                return res.status(403).json({error: `The requested product: ${product.name} ${product.dose} is not available. Please discard or select another product` })
+            }
+            promises.push(Product.update({stock: (product.stock - product.cart_product.amount)}, {where: {id: product.id}}))
             priceTot += product.price
         }
+        await Promise.all(promises)
         if(discount){
             saleData.discount = discount
         }
@@ -47,7 +53,7 @@ const postSale = async (req, res) => {
 
         // Logica para manejar el envio de correo al usuario con la info de la compra
 
-        return res.status(200).json({ message: "Successful Payment", sale });
+        return res.status(200).json({ message: "Successful Payment", sale, cart });
     } catch (error) {
         const message = error.raw ? error.raw.message : error.message
         return res.status(500).json({ message });
