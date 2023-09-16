@@ -1,11 +1,13 @@
-const {Cart, Product} = require('../../db')
+const {Cart, Product, UserClient} = require('../../db')
 
 const getCart = async (req, res) => {
     try {
         const {user} = req.params
+
         if(!user){
             return res.status(403).json({error: "Mandatory data is missing"})
         }
+
         const userPlan = await UserClient.findByPk(user, {
             include: [{
                 model: Plan,
@@ -28,6 +30,7 @@ const getCart = async (req, res) => {
                 },
             ]
         })
+
         if(!cart){
             return res.status(404).json({error: "Cart not found"})
         }
