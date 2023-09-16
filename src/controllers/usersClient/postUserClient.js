@@ -1,5 +1,6 @@
 const { UserClient, Plan, DniType } = require('../../db.js')
 const getTodayCountry = require('../../utils/getHourCountry.js');
+const { sendMailNewUser } = require('../../utils/nodemailer')
 
 async function postUserClient(req, res){
   try {
@@ -24,6 +25,7 @@ async function postUserClient(req, res){
     const planClient = await Plan.findByPk(plan);
     const dniTypeClient = await DniType.findByPk(dniType);
     
+
     if(planClient === null){
       return res.status(400).json({error: 'This plan is not registered'});
     }
@@ -46,6 +48,8 @@ async function postUserClient(req, res){
       backupContact:newUserClient.backupContact,
       imageUrl:newUserClient.imageUrl,
       plan: planClient}
+
+      sendMailNewUser(newUserClient.name, newUserClient.lastName, newUserClient.email) //nodemailer
     
     return res.status(200).json(resUser);
     
