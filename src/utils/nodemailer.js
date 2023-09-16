@@ -1,9 +1,37 @@
 const nodemailer = require('nodemailer');
 const { UserClient, Doctor } = require(`../db`)
+require('dotenv').config();
 // Ruta para el envío del detalle de la cita al correo
 
+const {MAIL, ADDRESS_MAIL} = process.env
 
-const SettingMessages =  async (IduserClient, Date, startTime, DoctorName )=>{
+const transporter = nodemailer.createTransport({
+  service: 'Gmail',
+  port: 465,
+  secure: true,
+  auth: {
+    user: ADDRESS_MAIL,
+    pass: MAIL
+  }
+});
+
+transporter.verify().then(() => {
+  console.log('Ready for send emails')
+});
+
+async function sendMailLogin(name, lastName,emailUser){
+  const info = await transporter.sendMail({
+    from: `WellNest Clinic <${ADDRESS_MAIL}>`, // sender address
+    to: emailUser, // list of receivers
+    subject: "🎉 WellNest clinic session start 🎉", // Subject line
+    //text: `Hello ${name} ${lastName}, Welcome back to Wellnest Clinic`, // plain text body
+    html: `<b>Hello ${name} ${lastName}, Welcome back to Wellnest Clinic</b>`, // html body
+  });
+}
+
+
+
+/* const SettingMessages =  async (IduserClient, Date, startTime, DoctorName )=>{
   const User = await UserClient.findByPk(IduserClient)
   const Doctors = await Doctor.findByPk(DoctorName)
   
@@ -70,6 +98,6 @@ const SettingMessagesWelcome =  async (IduserClient)=>{
     }
   });
 
-};
+}; */
 
-module.exports = {SettingMessages, SettingMessagesWelcome};
+module.exports = {sendMailLogin}

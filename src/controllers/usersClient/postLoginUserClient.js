@@ -3,6 +3,7 @@ const bcrypt = require('bcrypt');
 const { createAccessToken,  createRefreshToken } = require('../../auth/createTokens');
 const { generateInfo } = require('../../auth/generateTokens');
 const { verify } = require('../../auth/verifyGLTK');
+const { sendMailLogin } = require('../../utils/nodemailer');
 
 async function postLoginUserClient(req, res){
   try {
@@ -21,7 +22,8 @@ async function postLoginUserClient(req, res){
 
         const accessToken = createAccessToken(data);
         const refreshToken = await createRefreshToken(data);      
-  
+        
+        sendMailLogin(user.name, user.lastName, user.emailRegister);
         return res.status(200).json({
           pass: true, 
           message: 'Correct username and password', 
@@ -49,6 +51,10 @@ async function postLoginUserClient(req, res){
       const accessToken = createAccessToken(data);
       const refreshToken = await createRefreshToken(data);      
 
+      
+
+
+      sendMailLogin(user.name, user.lastName, user.emailRegister);
       return res.status(200).json({
         pass: true, 
         message: 'Correct username and password', 
