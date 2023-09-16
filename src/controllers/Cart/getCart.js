@@ -35,6 +35,7 @@ const getCart = async (req, res) => {
             return res.status(404).json({error: "Cart not found"})
         }
 
+        let totalPrice = 0;
         for(const product of cart.products) {
             totalPrice += (product.price * product.cart_product.amount)
         }
