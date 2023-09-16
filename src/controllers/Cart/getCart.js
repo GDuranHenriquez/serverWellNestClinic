@@ -50,4 +50,9 @@ const getCart = async (req, res) => {
     }
 }
 
+function calculateDiscountedPrice(price, discount) {
+    const discountedPrice = price * (1- discount);
+    return discountedPrice;
+}
+
 module.exports = getCart
