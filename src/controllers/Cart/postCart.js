@@ -10,7 +10,7 @@ const postCart = async (req, res) => {
     }
 
     const response = await Cart.findOrCreate({ where: { user } });
-
+    const responseId = response[0].id;
     if (Number(amount) === 0) {
       await Cart.destroy({
         where: {
@@ -36,7 +36,7 @@ const postCart = async (req, res) => {
     }
 
     const cart = await Cart.findOne({
-      where: { id: response[0].id },
+      where: { id: responseId },
       attributes: ["id"],
       include: [
         {
@@ -59,7 +59,7 @@ const postCart = async (req, res) => {
     const discountedPrice = calculateDiscountedPrice(totalPrice, discount);
     cart.discountedPrice = discountedPrice;
     return res.status(200).json({ cart, discountedPrice });
-    
+
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
