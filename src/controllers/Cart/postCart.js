@@ -10,7 +10,7 @@ const postCart = async (req, res) => {
     }
 
     const response = await Cart.findOrCreate({ where: { user } });
-    const responseId = response[0].id;
+    
     if (Number(amount) === 0) {
       await Cart.destroy({
         where: {
@@ -36,7 +36,7 @@ const postCart = async (req, res) => {
     }
 
     const cart = await Cart.findOne({
-      where: { id: responseId },
+      where: { user },
       attributes: ["id"],
       include: [
         {
