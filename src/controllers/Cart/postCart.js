@@ -41,7 +41,7 @@ const postCart = async (req, res) => {
       include: [
         {
           model: Product,
-          attributes: ["name", "price"],
+          attributes: ["id","name", "price"],
           through: {
             attributes: ["amount"],
           },
