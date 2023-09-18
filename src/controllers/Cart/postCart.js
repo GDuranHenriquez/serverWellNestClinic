@@ -11,7 +11,7 @@ const postCart = async (req, res) => {
     const cartInstance = response[0];
 
     if (Number(amount) === 0) {
-      await cartInstance.removeProduct(productId);
+      await cartInstance.destroy(productId);
     } else {
       await response[0].addProduct(productId, { through: { amount } });
     }
