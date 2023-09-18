@@ -2,16 +2,22 @@ const { Cart, Product, Plan, UserClient } = require("../../db");
 
 const postCart = async (req, res) => {
   try {
+
     const { user, productId, amount } = req.body;
+
     if ((!user, !productId, !Number(amount) < 0)) {
       return res.status(403).json({ error: "Mandatory data is missing" });
     }
 
     const response = await Cart.findOrCreate({ where: { user } });
-    const cartInstance = response[0];
 
     if (Number(amount) === 0) {
-      await cartInstance.destroy(productId);
+      await Cart.destroy({
+        where: {
+            user: user,
+            productId: productId
+        }
+      });
     } else {
       await response[0].addProduct(productId, { through: { amount } });
     }
@@ -53,6 +59,7 @@ const postCart = async (req, res) => {
     const discountedPrice = calculateDiscountedPrice(totalPrice, discount);
     cart.discountedPrice = discountedPrice;
     return res.status(200).json({ cart, discountedPrice });
+    
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
