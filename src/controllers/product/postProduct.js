@@ -3,7 +3,6 @@ const postProduct = async(req, res)=>{
 
 try {
     const { name, description, laboratory, presentation, drugs, amount, dose,  imageUrl, stock, price, needPrescription } = req.body;
-    console.log(name, description, laboratory, presentation, drugs, amount, dose,  imageUrl, stock, price, needPrescription)
     if( !name || !description || !laboratory || !presentation || !amount || !dose ||  !imageUrl || !stock || !price || !drugs.length){
       return  res.status(400).json({error: "Mandatory data is missing"})
     }
