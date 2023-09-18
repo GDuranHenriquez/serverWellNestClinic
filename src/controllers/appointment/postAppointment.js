@@ -5,6 +5,7 @@ const {
   validateAvailabilityHours,
   validateDoctorClientSchedule,
 } = require("../../utils/splitIntHoraToStrin");
+const { sendMailAppointment } = require('../../utils/nodemailer')
 
 async function postAppointment(req, res) {
   try {
@@ -48,6 +49,10 @@ async function postAppointment(req, res) {
       if (created) {
         appointment.setAppointment_UserClient(userClient);
         appointment.setStatus_Appointment(status.dataValues.id);
+
+        
+      
+
         return res.status(200).json(appointment);
       } else {
         return res.status(403).json({
@@ -89,6 +94,8 @@ async function postAppointment(req, res) {
       });
       createAppointment.setAppointment_UserClient(userClient);
       createAppointment.setStatus_Appointment(status.dataValues.id);
+
+      sendMailAppointment(UserClient.name , UserClient.lastName, UserClient.email , doctor , speciality, date ) //nodemailer
       return res.status(200).json(createAppointment);
 
     } else if (!getAppointmentUserClient.length) {
@@ -118,6 +125,8 @@ async function postAppointment(req, res) {
       });
       createAppointment.setAppointment_UserClient(userClient);
       createAppointment.setStatus_Appointment(status.dataValues.id);
+
+      sendMailAppointment(UserClient.name , UserClient.lastName, UserClient.email , doctor , speciality, date ) //nodemailer
       return res.status(200).json(createAppointment);
     } else {
       const busySchedulesDoctor = createArraySchedule(getAppointmentDoctor);
@@ -156,6 +165,8 @@ async function postAppointment(req, res) {
       });
       createAppointment.setAppointment_UserClient(userClient);
       createAppointment.setStatus_Appointment(status.dataValues.id);
+
+      sendMailAppointment(UserClient.name , UserClient.lastName, UserClient.email , doctor , speciality, date )  //nodemailer
       return res.status(200).json(createAppointment);
     }
   } catch (error) {

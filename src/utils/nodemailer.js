@@ -36,13 +36,13 @@ async function sendMailLogin(name, lastName,emailUser){
   const Doctors = await Doctor.findByPk(DoctorName)
   
 
-  const transporter = nodemailer.createTransport({
-  service: 'smtp.gmail.com',
+const transporter = nodemailer.createTransport({
+  service: 'Gmail',
   port: 465,
   secure: true,
   auth: {
-    user: 'wellnestclinic.pf@gmail.com',
-    pass: 'enodkstururrxpwd'
+    user: ADDRESS_MAIL,
+    pass: MAIL
   }
 });
 

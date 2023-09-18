@@ -3,7 +3,7 @@ const { encrypPass } = require('../../utils/crypPass.js');
 const { validateUserName } = require('../../utils/validateUserName');
 const { verify } = require('../../auth/verifyGLTK');
 const { generatePassword } = require('../../auth/generatePassword');
-const { SettingMessagesWelcome } = require('../../utils/nodemailer')
+
 
 async function posRegisterAcountUser(req, res){
   try {
@@ -38,7 +38,7 @@ async function posRegisterAcountUser(req, res){
           }
         })
       
-      SettingMessagesWelcome(id)
+       
       return res.status(200).json(registerAcountUser);
     }
     
@@ -71,7 +71,6 @@ async function posRegisterAcountUser(req, res){
         }
       })
 
-    SettingMessagesWelcome(id)
     return res.status(200).json(registerAcountUser);
 
   } catch (error) {

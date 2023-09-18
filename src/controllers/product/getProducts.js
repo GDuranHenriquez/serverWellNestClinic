@@ -1,17 +1,28 @@
 const { Product, Average, Laboratory, PresentationType, Drug } = require("../../db")
 const {Op} = require('sequelize')
+const { getTokenFromHeader } = require('../token/getTokenFromHeader')
+const {verifyAdmin} = require('../../auth/verifyAdmin')
 
 const getProducts = async (req, res) => {
     try {
-
-        const {sort, order, presentation, priceRange} = req.query
-        const filters = {deleted: false}
+        const token = getTokenFromHeader(req.headers)
+        const isAdmin = await verifyAdmin(token)
+        const {sort, order, presentation, priceRange, name} = req.query
+        const filters = {}
+        if(!isAdmin){
+            filters.deleted = false
+        }
         if(presentation){
             filters.presentationType = presentation
         }
         if(priceRange){
             filters.price = {
                 [Op.between] : JSON.parse(priceRange)
+            }
+        }
+        if(name){
+            filters.name = {
+                [Op.iLike]: `%${name}%`,
             }
         }
 
@@ -48,7 +59,9 @@ const getProducts = async (req, res) => {
             ],
             order: orderConfig
         });
-
+        if(name && !products.length) {
+            return res.status(404).json({error: 'Product not found'});
+        }
         return res.status(200).json(products);
 
     } catch (error) {

@@ -21,9 +21,10 @@ async function postLoginUserClient(req, res){
       if(data.emailRegister === email){   
 
         const accessToken = createAccessToken(data);
-        const refreshToken = await createRefreshToken(data);      
+        const refreshToken = await createRefreshToken(data);   
         
-        sendMailLogin(user.name, user.lastName, user.emailRegister);
+        sendMailLogin(user.name, user.lastName, user.emailRegister); //nodemailer
+  
         return res.status(200).json({
           pass: true, 
           message: 'Correct username and password', 

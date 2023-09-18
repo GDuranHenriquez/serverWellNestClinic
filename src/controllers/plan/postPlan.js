@@ -2,14 +2,12 @@ const {Plan} = require('../../db');
 
 async function postPlan(req, res){
   try {
-    const {name, discount} = req.body; 
+    const {name, discount} = req.body;    
     const plans = ['gold','bronze','silver'];
 
     if(plans.includes(name.toLowerCase())){
 
-      const [findplan, created] = await Plan.findOrCreate({where: { name: name.toLowerCase() },
-        defaults: {discount: discount}
-    });
+      const [findplan, created] = await Plan.findOrCreate({where: { name: name.toLowerCase() }, defaults: {discount}});
       if (created) {
         return res.status(200).json(findplan);
       } else {
