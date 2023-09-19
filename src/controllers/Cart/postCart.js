@@ -12,9 +12,8 @@ const postCart = async (req, res) => {
     const response = await Cart.findOrCreate({ where: { user } });
     
     if (Number(amount) === 0) {
-      await Cart.destroy({
+      await response.removeCart_product({
         where: {
-            user: user,
             productId: productId
         }
       });
