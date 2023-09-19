@@ -18,7 +18,7 @@ const postSale = async (req, res) => {
             return res.status(401).json({error: "The user doesn't seem to be the owner of this cart"})
         }
         const userClient = await UserClient.findOne({where: {id: user}, attributes: [], include: [{model: Plan, as: "UserClient_Plan"}]})
-        let discount = 0.5 // ==> se obtiene del plan
+        let discount = userClient.UserClient_Plan.discount
         const date = new Date()
         const saleData = {stripeId, date, user}
         let priceTot = 0
