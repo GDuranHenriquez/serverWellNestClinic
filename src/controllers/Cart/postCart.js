@@ -9,16 +9,14 @@ const postCart = async (req, res) => {
       return res.status(403).json({ error: "Mandatory data is missing" });
     }
 
-    const response = await Cart.findOrCreate({ where: { user } });
+    
     
     if (Number(amount) === 0) {
-      await response.removeProduct({
-        where: {
-            productId: productId
-        }
-      });
+        const cart = await Cart.findOne(user);
+        await cart.removeProduct(productId);
     } else {
-      await response[0].addProduct(productId, { through: { amount } });
+        const response = await Cart.findOrCreate({ where: { user } });
+        await response[0].addProduct(productId, { through: { amount } });
     }
 
     const userPlan = await UserClient.findByPk(user, {
