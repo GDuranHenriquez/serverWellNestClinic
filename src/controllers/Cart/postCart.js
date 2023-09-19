@@ -7,9 +7,7 @@ const postCart = async (req, res) => {
 
     if ((!user, !productId, !Number(amount) < 0)) {
       return res.status(403).json({ error: "Mandatory data is missing" });
-    }
-
-    
+    }    
     
     if (Number(amount) === 0) {
         const cart = await Cart.findOne({ where: { user } });
