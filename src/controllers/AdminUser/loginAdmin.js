@@ -2,6 +2,7 @@ const { UserAdmin } = require('../../db');
 const { createAccessToken,  createRefreshToken } = require('../../auth/createTokens');
 const { generateInfo } = require('../../auth/generateTokens');
 const { verify } = require('../../auth/verifyGLTK');
+const bcrypt = require('bcrypt')
 
 async function postLoginUserAdmin(req, res){
   try {
