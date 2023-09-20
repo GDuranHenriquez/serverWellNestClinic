@@ -46,7 +46,6 @@ const postSale = async (req, res) => {
     };
     const formattedDate = date.toLocaleString("es-AR", options);
     const formattedDateParts = formattedDate.split(' ');
-    console.log(formattedDateParts);
     const dateParts = formattedDateParts[0].split("/");
     const timeParts = formattedDateParts[1].split(":");
     const formattedDateForDB = `${dateParts[2]}-${dateParts[1]}-${dateParts[0]} ${timeParts[0]}:${timeParts[1]}:${timeParts[2]}`;
