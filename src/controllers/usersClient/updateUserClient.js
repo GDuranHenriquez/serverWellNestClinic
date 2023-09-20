@@ -17,12 +17,14 @@ async function updateUserClient(req, res) {
             if(!password) return res.status(403).json({error: 'Mandatory data is missing'})
             const match = await bcrypt.compare(password, user.password)
             if(!match) return res.status(403).json({error: 'Wrong password'})
-            if(!(password.length >= 8 && password.length <= 32) ){
+            if(!(newPassword.length >= 8 && newPassword.length <= 32) ){
                 return res.status(403).json({error: 'The password must be between 8 and 32 characters'});
             };
-            const check = await bcrypt.compare(password, newPassword)
-            if(check) return res.status(403).json({error: "The new password must be different from the previous one"})
             const passCrypt = await encrypPass(newPassword);
+            const check = await bcrypt.compare(password, passCrypt)
+            console.log(check)
+            if(check) return res.status(403).json({error: "The new password must be different from the previous one"})
+            
             dataUpdate.password = passCrypt
         }
         if(imageUrl){
