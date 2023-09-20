@@ -4,7 +4,7 @@ const { SECRECT_KEY } = process.env;
 function sign(payload, isAccessToken){
   return jwt.sign(payload, isAccessToken? process.env.ACCESS_TOKEN_SECRET:process.env.REFRESH_TOKEN_SECRET, {
     algorithm: "HS256",
-    expiresIn: 600,
+    expiresIn: 3600,
   })
 };
 
