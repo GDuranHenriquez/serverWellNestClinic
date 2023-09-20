@@ -45,7 +45,7 @@ const postSale = async (req, res) => {
       hour12: false, // Formato de 24 horas
     };
     const formattedDate = date.toLocaleString("es-AR", options);
-    const formattedDateParts = formattedDate.split(/, | /);
+    const formattedDateParts = formattedDate.split(' ');
     console.log(formattedDateParts);
     const dateParts = formattedDateParts[0].split("/");
     const timeParts = formattedDateParts[1].split(":");
