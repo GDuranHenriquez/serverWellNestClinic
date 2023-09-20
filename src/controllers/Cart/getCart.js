@@ -32,7 +32,7 @@ const getCart = async (req, res) => {
         })
 
         if(!cart){
-            return res.status(200).json({cart:[], discountedPrice: 0})
+            return res.status(200).json({cart:{}, discountedPrice: 0})
         }
 
         let totalPrice = 0;
