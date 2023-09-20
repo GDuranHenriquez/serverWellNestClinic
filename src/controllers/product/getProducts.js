@@ -5,7 +5,6 @@ const {verifyAdmin} = require('../../auth/verifyAdmin')
 
 const getProducts = async (req, res) => {
     try {
-<<<<<<< Updated upstream
         const token = getTokenFromHeader(req.headers)
         const isAdmin = await verifyAdmin(token)
         const {sort, order, presentation, priceRange, name} = req.query
@@ -26,19 +25,6 @@ const getProducts = async (req, res) => {
                 [Op.iLike]: `%${name}%`,
             }
         }
-=======
-
-        const {sort, order} = req.query
-
-        let defaultOrder =  order ? order : 'ASC'
-        let defaultSort = sort ? sort : 'name'
-
-        let search = sort === 'rating' ? [[{model: Average, as: 'Product_Average'}, 'averageRating', defaultOrder]] : [[defaultSort, defaultOrder]]
-
-        const products = await Product.findAll({where: {deleted: false}, include: [{model: Average, as: 'Product_Average'}],
-        order: search,
-    });
->>>>>>> Stashed changes
 
         let defaultOrder =  order ? order : 'ASC'
         let defaultSort = sort ? sort : 'name'
