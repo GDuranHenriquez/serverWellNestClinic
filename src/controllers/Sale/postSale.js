@@ -3,6 +3,7 @@ const {Sale, Cart, Product, DetailSale, UserClient, Plan} = require('../../db');
 require('dotenv').config();
 const {SKSTRIPE} = process.env
 const stripe = new Stripe(SKSTRIPE);
+const { sendBillPharmacyToUser } = require('../../utils/nodemailer');
 
 const postSale = async (req, res) => {
     try {
@@ -54,6 +55,7 @@ const postSale = async (req, res) => {
         await cart.destroy()
 
         // Logica para manejar el envio de correo al usuario con la info de la compra
+        sendBillPharmacyToUser(UserClient.name, UserClient.emailRegister, cart_product.amount, cart_product.price, sale.id, cart_product.product )
 
         return res.status(200).json({ message: "Successful Payment", sale, cart });
     } catch (error) {

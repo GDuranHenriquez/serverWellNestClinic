@@ -1,5 +1,4 @@
 const nodemailer = require('nodemailer');
-const { UserClient, Doctor } = require(`../db`)
 require('dotenv').config();
 
 
@@ -48,4 +47,18 @@ async function sendMailAppointment(name, lastName,emailUser, doctorName, Special
     html: `<b>Hello ${name} ${lastName}, we hope you having a good day, you have an appointment with ${doctorName}  ${Speciality} Specialist on ${date}, don't forget be here 15 min before ⏰ </b>`, // html body
   });
 }
-module.exports = {sendMailLogin, sendMailNewUser, sendMailAppointment}
+
+async function sendBillPharmacyToUser(name, emailUser, amount, price, sale, product){
+  const info = await transporter.sendMail({
+    from: `WellNest Clinic <${ADDRESS_MAIL}>`, // sender address
+    to: emailUser, // list of receivers
+    subject: `Hi ${name}! this is your bill! 👀🏥`, // Subject line
+    //text: `Hello ${name} ${lastName}, Welcome back to Wellnest Clinic`, // plain text body
+    html: `<b>amount : ${amount}</br>
+               price : ${price} </br>
+               sale : ${sale} </br>
+               product : ${product}</b>`, // html body
+  });
+}
+
+module.exports = {sendMailLogin, sendMailNewUser, sendMailAppointment, sendBillPharmacyToUser}
