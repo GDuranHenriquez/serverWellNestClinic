@@ -5,7 +5,7 @@ const getSaleByUser = async (req, res) => {
 
     try {
         const {user} = req.params
-        const sales = await Sale.findAll({where: {user}, include: [{model: DetailSale, as: "Sale_DetailSale", attributes: ["amount", "price"], include: [{model: Product, as: "DetailSale_Product", attributes: ["name", "dose", "imageUrl"]}]}]});
+        const sales = await Sale.findAll({where: {user}, include: [{model: DetailSale, as: "Sale_DetailSale", attributes: ["amount", "price"], include: [{model: Product, as: "DetailSale_Product", attributes: ["id","name", "dose", "imageUrl"]}]}]});
         if(!sales.length){
             return res.status(404).json({error: "There isn't any sale yet"})
         }
@@ -14,4 +14,4 @@ const getSaleByUser = async (req, res) => {
         return res.status(500).json({error: error.message});
     }
 }
-module.exports = {getSaleByUser};
+module.exports = {getSaleByUser};my apointments
