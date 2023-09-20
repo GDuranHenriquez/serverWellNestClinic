@@ -1,11 +1,3 @@
-<<<<<<< HEAD
-const Stripe = require("stripe");
-const {Sale, Cart, Product, DetailSale, UserClient, Plan} = require('../../db');
-require('dotenv').config();
-const {SKSTRIPE} = process.env
-const stripe = new Stripe(SKSTRIPE);
-const { sendBillPharmacyToUser } = require('../../utils/nodemailer');
-=======
 const {
   Sale,
   Cart,
@@ -14,29 +6,17 @@ const {
   UserClient,
   Plan,
 } = require("../../db");
+
 require("dotenv").config();
 const { SKSTRIPE_PRIVATE } = process.env;
 const stripe = require("stripe")(SKSTRIPE_PRIVATE);
->>>>>>> fb2a36f69932a710cc36cba45c5985e52158b013
 
 const postSale = async (req, res) => {
   try {
     const { stripeId, cartId, user } = req.body;
 
-    //return res.status(200).json(paymentIntent);
-
-<<<<<<< HEAD
-        // Logica para manejar el envio de correo al usuario con la info de la compra
-        sendBillPharmacyToUser(UserClient.name, UserClient.emailRegister, cart_product.amount, cart_product.price, sale.id, cart_product.product )
-
-        return res.status(200).json({ message: "Successful Payment", sale, cart });
-    } catch (error) {
-        const message = error.raw ? error.raw.message : error.message
-        return res.status(500).json({ message });
-=======
     if (!stripeId || !cartId || !user /* || !(Number(amount) > 0) */) {
       return res.status(403).json({ error: "Mandatory data is missing" });
->>>>>>> fb2a36f69932a710cc36cba45c5985e52158b013
     }
     const cart = await Cart.findOne({
       where: { id: cartId },
@@ -118,6 +98,8 @@ const postSale = async (req, res) => {
     const detailSale = await DetailSale.bulkCreate(detailData);
     await cart.destroy();
     // Logica para manejar el envio de correo al usuario con la info de la compra
+    
+    /* sendBillPharmacyToUser(UserClient.name, UserClient.emailRegister, cart_product.amount, cart_product.price, sale.id, cart_product.product ) */
 
     return res.status(200).json({ message: "Successful Payment", sale, cart });
   } catch (error) {
