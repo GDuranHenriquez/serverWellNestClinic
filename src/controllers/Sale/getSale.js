@@ -14,4 +14,4 @@ const getSaleByUser = async (req, res) => {
         return res.status(500).json({error: error.message});
     }
 }
-module.exports = {getSaleByUser};my apointments
+module.exports = {getSaleByUser};

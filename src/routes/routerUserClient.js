@@ -5,6 +5,7 @@ const { posRegisterAcountUser } = require('../controllers/usersClient/postRegist
 const { getValidateUsername } = require('../controllers/usersClient/getValidateUserName');
 const { postLoginUserClient } = require('../controllers/usersClient/postLoginUserClient');
 const { getIsMember } = require('../controllers/usersClient/getIsMember');
+const {updateUserClient} = require('../controllers/usersClient/updateUserClient');
 
 const clientUserRouter = Router();
 
@@ -14,5 +15,6 @@ clientUserRouter.get('/validateUser', getValidateUsername);
 clientUserRouter.post('/login', postLoginUserClient);
 clientUserRouter.get('/isMember/:ID', getIsMember);
 clientUserRouter.get('/', getUserClient);
+clientUserRouter.put('/', updateUserClient);
 
 module.exports = clientUserRouter;
