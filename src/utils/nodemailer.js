@@ -44,7 +44,7 @@ async function sendMailAppointment(name, lastName, emailUser, doctorName, doctor
     to: emailUser, // list of receivers
     subject: "You have a date! 👀🏥", // Subject line
     //text: `Hello ${name} ${lastName}, Welcome back to Wellnest Clinic`, // plain text body
-    html: `<br>Hello ${name} ${lastName}, we hope you are having a good time.</br> You have a new appointment with the ${speciality} ${doctorName} ${doctorLastName} on ${date}. </br> Please don't forget be 15 min before the appointment⏰ </b>`, // html body
+    html: `<br>Hello ${name} ${lastName}, we hope you are having a good time.<br> You have a new appointment with the ${speciality} ${doctorName} ${doctorLastName} on ${date}. <br> Please don't forget be 15 min before the appointment⏰ </b>`, // html body
   });
 }
 
