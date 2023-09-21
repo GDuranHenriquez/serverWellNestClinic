@@ -1,6 +1,7 @@
 const {UserClient} = require('../../db')
 const bcrypt = require('bcrypt')
 const { encrypPass } = require('../../utils/crypPass.js');
+const {sendPasswordChangeAlert} = require('../../utils/nodemailer')
 
 async function updateUserClient(req, res) {
     try {
@@ -22,7 +23,6 @@ async function updateUserClient(req, res) {
             };
             const passCrypt = await encrypPass(newPassword);
             const check = await bcrypt.compare(password, passCrypt)
-            console.log(check)
             if(check) return res.status(403).json({error: "The new password must be different from the previous one"})
             
             dataUpdate.password = passCrypt
@@ -31,6 +31,9 @@ async function updateUserClient(req, res) {
             dataUpdate.imageUrl = imageUrl
         }
         const userUpdated = await UserClient.update(dataUpdate, {where:{id:id}})
+        if(dataUpdate.password){
+            sendPasswordChangeAlert(user.name, user.email)
+        }
         return res.status(200).json(userUpdated);
     } catch (error) {
         return res.status(500).json({error: error.message})

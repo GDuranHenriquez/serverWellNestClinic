@@ -10,6 +10,7 @@ const {
 require("dotenv").config();
 const { SKSTRIPE_PRIVATE } = process.env;
 const stripe = require("stripe")(SKSTRIPE_PRIVATE);
+const {sendBillPharmacyToUser} = require('../../utils/nodemailer')
 
 const postSale = async (req, res) => {
   try {
@@ -32,7 +33,6 @@ const postSale = async (req, res) => {
     }
     const userClient = await UserClient.findOne({
       where: { id: user },
-      attributes: [],
       include: [{ model: Plan, as: "UserClient_Plan" }],
     });
     let discount = userClient.UserClient_Plan.discount;
@@ -45,7 +45,7 @@ const postSale = async (req, res) => {
     };
     const formattedDate = date.toLocaleString("es-AR", options);
     const formattedDateParts = formattedDate.split(' ');
-    const dateParts = formattedDateParts[0].split("/");
+    const dateParts = formattedDateParts[0].slice(0, formattedDateParts[0].length - 1).split("/");
     const timeParts = formattedDateParts[1].split(":");
     const formattedDateForDB = `${dateParts[2]}-${dateParts[1]}-${dateParts[0]} ${timeParts[0]}:${timeParts[1]}:${timeParts[2]}`;
 
@@ -87,7 +87,6 @@ const postSale = async (req, res) => {
     await Promise.all(promises);
 
     const sale = await Sale.create(saleData);
-    console.log(formattedDate);
     const detailData = cart.products.map((product) => ({
       amount: product.cart_product.amount,
       price: product.price,
@@ -98,8 +97,10 @@ const postSale = async (req, res) => {
     const detailSale = await DetailSale.bulkCreate(detailData);
     await cart.destroy();
     // Logica para manejar el envio de correo al usuario con la info de la compra
-    
-    /* sendBillPharmacyToUser(UserClient.name, UserClient.emailRegister, cart_product.amount, cart_product.price, sale.id, cart_product.product ) */
+    const emailProductData = await cart.products.map(product => (
+      {name: product.name, dose: product.dose, price: product.price, amount: product.cart_product.amount}
+    ))
+    sendBillPharmacyToUser(userClient.name, userClient.email, sale.id, sale.date, emailProductData, priceTot, sale.discount, sale.price)
 
     return res.status(200).json({ message: "Successful Payment", sale, cart });
   } catch (error) {

@@ -1,4 +1,4 @@
-const { Appointment, StatusAppointment, UserClient } = require("../../db");
+const { Appointment, StatusAppointment, UserClient, Doctor, Speciality } = require("../../db");
 const {
   varifyStartTimeInSchedule,
   createArraySchedule,
@@ -31,7 +31,7 @@ async function postAppointment(req, res) {
       where: {
         doctor: doctor,
         date: date,
-      },
+      }
     });
 
     const getAppointmentUserClient = await Appointment.findAll({
@@ -41,6 +41,9 @@ async function postAppointment(req, res) {
       },
     });
 
+    const doctorData = await Doctor.findByPk(doctor)
+    const specialityData = await Speciality.findByPk(speciality)
+
     if (!getAppointmentDoctor.length && !getAppointmentUserClient.length) {
       const [appointment, created] = await Appointment.findOrCreate({
         where: { doctor, date, startTime, speciality },
@@ -49,10 +52,6 @@ async function postAppointment(req, res) {
       if (created) {
         appointment.setAppointment_UserClient(userClient);
         appointment.setStatus_Appointment(status.dataValues.id);
-
-        
-      
-
         return res.status(200).json(appointment);
       } else {
         return res.status(403).json({
@@ -95,7 +94,7 @@ async function postAppointment(req, res) {
       createAppointment.setAppointment_UserClient(userClient);
       createAppointment.setStatus_Appointment(status.dataValues.id);
 
-      sendMailAppointment(UserClient.name , UserClient.lastName, UserClient.email , doctor , speciality, date ) //nodemailer
+      sendMailAppointment(client.name , client.lastName, client.email , doctorData.name , specialityData.name, date ) //nodemailer
       return res.status(200).json(createAppointment);
 
     } else if (!getAppointmentUserClient.length) {
@@ -126,7 +125,7 @@ async function postAppointment(req, res) {
       createAppointment.setAppointment_UserClient(userClient);
       createAppointment.setStatus_Appointment(status.dataValues.id);
 
-      sendMailAppointment(UserClient.name , UserClient.lastName, UserClient.email , doctor , speciality, date ) //nodemailer
+      sendMailAppointment(client.name , client.lastName, client.email , doctorData.name , specialityData.name, date ) //nodemailer
       return res.status(200).json(createAppointment);
     } else {
       const busySchedulesDoctor = createArraySchedule(getAppointmentDoctor);
@@ -166,7 +165,7 @@ async function postAppointment(req, res) {
       createAppointment.setAppointment_UserClient(userClient);
       createAppointment.setStatus_Appointment(status.dataValues.id);
 
-      sendMailAppointment(UserClient.name , UserClient.lastName, UserClient.email , doctor , speciality, date )  //nodemailer
+      sendMailAppointment(client.name , client.lastName, client.email , doctorData.name, doctorData.lastName, specialityData.name, date )  //nodemailer
       return res.status(200).json(createAppointment);
     }
   } catch (error) {
