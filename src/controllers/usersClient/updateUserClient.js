@@ -16,7 +16,9 @@ async function updateUserClient(req, res) {
         if(newPassword){
             if(!password) return res.status(403).json({error: 'Mandatory data is missing'})
             const match = await bcrypt.compare(password, user.password)
+
             if(!match) return res.status(403).json({error: 'Wrong password'})
+            
             if(!(newPassword.length >= 8 && newPassword.length <= 32) ){
                 return res.status(403).json({error: 'The password must be between 8 and 32 characters'});
             };
@@ -31,7 +33,7 @@ async function updateUserClient(req, res) {
             dataUpdate.imageUrl = imageUrl
         }
         const userUpdated = await UserClient.update(dataUpdate, {where:{id:id}})
-        return res.status(200).json(userUpdated);
+        return res.status(200).json({userUpdated, imageUrl});
     } catch (error) {
         return res.status(500).json({error: error.message})
     }
