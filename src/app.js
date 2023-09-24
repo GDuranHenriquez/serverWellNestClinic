@@ -4,9 +4,31 @@ const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const cors = require('cors');
 
+//swagger
+const swaggerUI = require('swagger-ui-express');
+const swaggerDocument = require('./docsSwagger/openapi.json');
+const { authenticate } = require('./auth/athenticate');
 
 //All Routes.
-
+const clientUserRouter = require('./routes/routerUserClient'); 
+const planRouter = require('./routes/routerPlan');
+const routerDoctor = require("./routes/routerDoctor");
+const routerSale = require('./routes/routerSale');
+const productRouter = require("./routes/routerProduct");
+const routerSpeciality = require("./routes/routerSpeciality");
+const drugRouter = require("./routes/routerDrug");
+const laboratoryRouter = require("./routes/routerLaboratory");
+const routerPresentationType = require('./routes/routerPresentationType');
+const routerDniType = require('./routes/routerDniType');
+const routerAppointment = require('./routes/routerAppointment')
+const routerScore = require("./routes/routerScore");
+const routerAppointmentRouter = require('./routes/routerStatusAppointment');
+const routerDataUserClient = require('./routes/routerDataUserClient');
+const routerCart = require('./routes/routerCart')
+const routerAdminUser  = require('./routes/routerUserAdmin');
+const tokenRouter = require('./routes/routerToken');
+const loginRegister = require('./routes/routerLoginRegister');
+const routerSingOut = require('./routes/routerSingOut');
 
 require('./db.js');
 
@@ -14,7 +36,7 @@ const server = express();
 
 server.name = 'API WELLNEST CLINIC';
 
-
+//middlewares
 server.use(bodyParser.urlencoded({ extended: true, limit: '100mb' }));
 server.use(bodyParser.json({ limit: '100mb' }));
 server.use(cookieParser());
@@ -27,8 +49,32 @@ server.use((req, res, next) => {
   next();
 });
 server.use(cors());
+server.use(express.json());
 
 //server.use('/', routes);
+server.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerDocument));
+server.use('/data-userClient', authenticate, routerDataUserClient);
+
+server.use('/plan', planRouter);
+server.use('/doctor', routerDoctor);
+server.use('/sale', routerSale);
+server.use('/product', productRouter);
+server.use('/speciality', routerSpeciality);
+server.use('/drug', drugRouter);
+server.use('/presentation-type', routerPresentationType);
+server.use('/appointment', routerAppointment);
+server.use('/dni-type', routerDniType);
+server.use('/lab', laboratoryRouter);
+server.use('/score', routerScore);
+server.use('/status-appointment', routerAppointmentRouter);
+server.use('/userClient', clientUserRouter);
+server.use('/cart', routerCart);
+server.use('/userAdmin', routerAdminUser);
+
+//tokens
+server.use('/token', tokenRouter);
+server.use('/sing-out', routerSingOut);
+server.use('/login-register', loginRegister);
 
 
 // Error catching endware.

@@ -8,8 +8,12 @@ const {
 } = process.env;
 
 const sequelize = new Sequelize(`postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}:${DB_PORT}/${DB_NAME}`, {
+  define: {
+    freezeTableName: true, // Evitar que Sequelize pluralice automáticamente el nombre de la tabla
+  },
   logging: false, // set to console.log to see the raw SQL queries
   native: false, // lets Sequelize know we can use pg-native for ~30% more speed
+  
 });
 
 const basename = path.basename(__filename);
@@ -30,18 +34,72 @@ modelDefiners.forEach(model => model(sequelize));
 let entries = Object.entries(sequelize.models);
 let capsEntries = entries.map((entry) => [entry[0][0].toUpperCase() + entry[0].slice(1), entry[1]]);
 
+
 sequelize.models = Object.fromEntries(capsEntries);
+
 
 // En sequelize.models están todos los modelos importados como propiedades
 // Para relacionarlos hacemos un destructuring
 
-const { } = sequelize.models;
+const {
+  UserClient,
+  Plan,
+  Appointment,
+  Doctor,
+  Location,
+  Speciality,
+  Product,
+  PresentationType,
+  Drug,
+  Laboratory,
+  Sale,
+  DetailSale,
+  DniType,
+  Score,
+  Average,
+  StatusAppointment,
+  Cart
+} = sequelize.models;
 
+// N:M
+// al pasarle la propiedad timestamps false ya se define que no se creen las propiedades createdAt y updatedAt
+Doctor.belongsToMany(Location, {through: "doctor_location", timestamps: false})
+Location.belongsToMany(Doctor, {through: "doctor_location", timestamps: false})
+Doctor.belongsToMany(Speciality, {through: "doctor_speciality", timestamps: false})
+Speciality.belongsToMany(Doctor, {through: "doctor_speciality", timestamps: false})
+Product.belongsToMany(Drug, {through: "product_drug", timestamps: false})
+Drug.belongsToMany(Product, {through: "product_drug", timestamps: false})
+Cart.belongsToMany(Product, {through: 'cart_product', timestamps: false})
+Product.belongsToMany(Cart, {through: 'cart_product', timestamps: false})
+// 1:1
+//add one key PlanId or id_plan to the table UserClient, according to configuration
+UserClient.belongsTo(Plan, {as:'UserClient_Plan', foreignKey: 'id_plan'});
 
-// Aca vendrian las relaciones
-// Product.hasMany(Reviews);
+UserClient.belongsTo(DniType, {as:'UserClient_DniType', foreignKey: 'id_dniType'});
 
+Appointment.belongsTo(UserClient, {as:'Appointment_UserClient', foreignKey: 'userClient'});
 
+Appointment.belongsTo(Doctor, {as:'Appointment_Doctor', foreignKey: 'doctor'});
+
+Appointment.belongsTo(Speciality, {as:'Appointment_Speciality', foreignKey: 'speciality'});
+
+Appointment.belongsTo(StatusAppointment, {as:'Status_Appointment'});
+
+Sale.belongsTo(UserClient, {as:'Sale_UserClient', foreignKey: 'user'});
+
+DetailSale.belongsTo(Product, {as: 'DetailSale_Product', foreignKey: 'product'})
+
+Product.belongsTo(Laboratory, {as:'Product_Laboratory', foreignKey: 'laboratory'});
+
+Product.belongsTo(PresentationType, {as:'Product_PresentationType', foreignKey: 'presentationType'});
+
+UserClient.hasOne(Cart, {as: 'UserClient_Cart', foreignKey: 'user'});
+
+Product.hasOne(Average, {as: 'Product_Average', foreignKey: 'product'})
+
+Product.hasMany(Score, {as: 'Product_Score', foreignKey: 'product'});
+
+Sale.hasMany(DetailSale, {as:'Sale_DetailSale', foreignKey: 'sale'});
 
 module.exports = {
   ...sequelize.models, // para poder importar los modelos así: const { Product, User } = require('./db.js');
